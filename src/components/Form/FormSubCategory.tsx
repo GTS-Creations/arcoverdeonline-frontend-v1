@@ -56,7 +56,7 @@ const FormSubCategory = ({
               placeholder="Insira a sub-categoria"
               padding="1rem"
               _placeholder={{ color: "gray.400" }}
-              className="focus:ring focus:ring-gray-600"
+              className="focus:ring focus:ring-green-600"
               autoComplete="off"
             />
           </Field>
@@ -71,7 +71,7 @@ const FormSubCategory = ({
             id="category-select"
             value={categoryId}
             onChange={handleChange}
-            className="w-full mt-2 p-3 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none text-gray-700 focus:ring focus:ring-gray-600"
+            className="w-full mt-2 p-3 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none text-gray-700 focus:ring focus:ring-green-600"
             required
           >
             <option value="">Selecione a categoria</option>

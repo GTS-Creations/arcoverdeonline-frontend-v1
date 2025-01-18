@@ -102,12 +102,6 @@ const AllSponsor = () => {
                   <Table.ColumnHeader color="green.700">
                     Contato
                   </Table.ColumnHeader>
-
-                  <Table.ColumnHeader
-                    color="green.700"
-                  >
-                    URL
-                  </Table.ColumnHeader>
                 </Table.Row>
               </Table.Header>
 
@@ -120,9 +114,6 @@ const AllSponsor = () => {
                   >
                     <Table.Cell color="green.700">{sponsor.name}</Table.Cell>
                     <Table.Cell color="green.700" className="break-all">{sponsor.contact}</Table.Cell>
-                    <Table.Cell color="green.700" className="break-all">
-                      {sponsor.url}
-                    </Table.Cell>
 
                     <Table.Cell textAlign="right">
                       <Link href={`/pages/sponsors/editsponsor/${sponsor.id}`}>

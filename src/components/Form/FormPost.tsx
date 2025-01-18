@@ -56,20 +56,21 @@ const FormPost: React.FC<FormPostProps> = ({
         </Stack>
 
         <Fieldset.Content>
-          <Field label="Título">
+          <Field label="Título*">
             <Input
               name="title"
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               required
-              placeholder="Insira o título"
-              className="focus:ring focus:ring-gray-600"
+              paddingLeft="1rem"
+              placeholder="Insira o título da publicação"
+              className="focus:ring focus:ring-green-600"
               autoComplete="off"
             />
           </Field>
 
-          <Field label="PDF">
+          <Field label="PDF*">
             <Input
               name="pdf"
               type="file"
@@ -87,10 +88,10 @@ const FormPost: React.FC<FormPostProps> = ({
                 }
               }}
               required
-              className="focus:ring focus:ring-gray-600"
+              className="focus:ring focus:ring-green-600"
             />
             {pdf && (
-              <p className="mt-2 text-sm text-gray-600">
+              <p className="mt-2 text-sm text-green-600">
                 Arquivo selecionado: {pdf.name}
               </p>
             )}
@@ -100,13 +101,13 @@ const FormPost: React.FC<FormPostProps> = ({
             className="text-sm font-medium -mb-4"
             htmlFor="sub-category-select"
           >
-            Selecione uma sub-categoria
+            Selecione uma sub-categoria*
           </label>
           <select
             id="sub-category-select"
             value={subCategoryId}
             onChange={handleChange}
-            className="w-full mt-2 p-3 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none text-gray-700 focus:ring focus:ring-gray-600"
+            className="w-full mt-2 p-3 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none text-gray-700 focus:ring focus:ring-green-600"
             required
           >
             <option value="">Selecione uma sub-categoria</option>

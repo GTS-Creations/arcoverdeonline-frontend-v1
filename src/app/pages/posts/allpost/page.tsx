@@ -98,7 +98,7 @@ const AllPost = () => {
                   </Table.ColumnHeader>
                   <Table.ColumnHeader color="green.700">PDF</Table.ColumnHeader>
                   <Table.ColumnHeader color="green.700">
-                    Subcategoria
+                    Sub-Categoria
                   </Table.ColumnHeader>
                 </Table.Row>
               </Table.Header>
