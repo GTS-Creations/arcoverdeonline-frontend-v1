@@ -45,7 +45,7 @@ const FormSubCategory = ({
         </Stack>
 
         <Fieldset.Content>
-          <Field label="Name">
+          <Field label="Nome da sub-categoria*">
             <Input
               name="name"
               type="text"
@@ -65,7 +65,7 @@ const FormSubCategory = ({
             className="text-sm font-medium -mb-4"
             htmlFor="category-select"
           >
-            Selecione uma categoria
+            Selecione uma categoria*
           </label>
           <select
             id="category-select"
