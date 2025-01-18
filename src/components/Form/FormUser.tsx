@@ -22,7 +22,7 @@ const FormUser = ({
         </Stack>
 
         <Fieldset.Content>
-          <Field label="Nome">
+          <Field label="Nome*">
             <Input
               name="name"
               type="text"
@@ -33,12 +33,12 @@ const FormUser = ({
               placeholder="Insira o nome do usuário"
               padding="1rem"
               _placeholder={{ color: "gray.400" }}
-              className="focus:ring focus:ring-gray-600"
+              className="focus:ring focus:ring-green-600"
               autoComplete="off"
             />
           </Field>
 
-          <Field label="Email">
+          <Field label="Email*">
             <Input
               name="email"
               type="text"
@@ -49,12 +49,12 @@ const FormUser = ({
               placeholder="Insira o email do usuário"
               padding="1rem"
               _placeholder={{ color: "gray.400" }}
-              className="focus:ring focus:ring-gray-600"
+              className="focus:ring focus:ring-green-600"
               autoComplete="off"
             />
           </Field>
 
-          <Field label="Senha">
+          <Field label="Senha*">
             <Input
               name="name"
               type="password"
@@ -65,7 +65,7 @@ const FormUser = ({
               placeholder="Insira a senha do usuário"
               padding="1rem"
               _placeholder={{ color: "gray.400" }}
-              className="focus:ring focus:ring-gray-600"
+              className="focus:ring focus:ring-green-600"
               autoComplete="off"
             />
           </Field>
