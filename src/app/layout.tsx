@@ -1,13 +1,12 @@
 import "./globals.css";
 
 import type { Metadata } from "next";
-
 import { Provider } from "@/components/ui/provider";
+import { AuthProvider } from "@/contexts/AuthContext";
 
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import Sidebar from "@/components/Siderbar/Siderbar";
-import { AuthProvider } from "@/contexts/AuthContext";
 
 export const metadata: Metadata = {
   title: "Arcoverde Online",

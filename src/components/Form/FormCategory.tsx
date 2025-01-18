@@ -38,7 +38,7 @@ const FormCategory = ({ name, setName }: any) => {
         </Stack>
 
         <Fieldset.Content>
-          <Field label="Nome">
+          <Field label="Nome da Categoria*">
             <Input
               name="name"
               type="text"
@@ -49,7 +49,7 @@ const FormCategory = ({ name, setName }: any) => {
               placeholder="Insira o nome da categoria"
               padding="1rem"
               _placeholder={{ color: "gray.400" }}
-              className="focus:ring focus:ring-gray-600"
+              className="focus:ring focus:ring-green-600"
               autoComplete="off"
             />
           </Field>

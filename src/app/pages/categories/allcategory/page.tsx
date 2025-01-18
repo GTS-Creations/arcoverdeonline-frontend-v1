@@ -69,8 +69,8 @@ const AllCategory = () => {
   if (!categories) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <p className="text-green-700 text-xl font-semibold">
-          Categoria não encontrada.
+        <p className="text-red-700 text-xl font-semibold">
+          Categorias não encontradas.
         </p>
       </div>
     );
