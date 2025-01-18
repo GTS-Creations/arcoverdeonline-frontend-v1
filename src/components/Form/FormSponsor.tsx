@@ -40,6 +40,19 @@ const FormSponsor = ({
     }
   };
 
+  const formatPhoneNumber = (value: string) => {
+    const numbersOnly = value.replace(/\D/g, "");
+    if (numbersOnly.length <= 10) {
+      return numbersOnly.replace(/(\d{2})(\d{4})(\d{0,4})/, "($1) $2-$3");
+    }
+    return numbersOnly.replace(/(\d{2})(\d{5})(\d{0,4})/, "($1) $2-$3");
+  };
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const formattedValue = formatPhoneNumber(e.target.value);
+    setContact(formattedValue);
+  };
+
   return (
     <div>
       <Fieldset.Root size="lg" maxW="md">
@@ -89,10 +102,10 @@ const FormSponsor = ({
               name="contact"
               type="text"
               value={contact}
-              onChange={(e) => setContact(e.target.value)}
+              onChange={handlePhoneChange}
               required
               border="1px solid #ddd"
-              placeholder="Insira o contato do patrocinador"
+              placeholder="(xx)xxxxx-xxxx"
               padding="1rem"
               _placeholder={{ color: "gray.400" }}
               className="focus:ring focus:ring-green-600"
