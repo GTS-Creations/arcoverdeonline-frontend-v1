@@ -53,7 +53,7 @@ const FormSubCategory = ({
               onChange={(e) => setName(e.target.value)}
               required
               border="1px solid #ddd"
-              placeholder="Insira a sub-categoria"
+              placeholder="Insira o nome da sub-categoria"
               padding="1rem"
               _placeholder={{ color: "gray.400" }}
               className="focus:ring focus:ring-green-600"

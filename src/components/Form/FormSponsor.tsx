@@ -53,7 +53,7 @@ const FormSponsor = ({
         </Stack>
 
         <Fieldset.Content>
-          <Field label="Nome">
+          <Field label="Nome do Patrocinador*">
             <Input
               name="name"
               type="text"
@@ -64,12 +64,12 @@ const FormSponsor = ({
               placeholder="Insira o nome do patrocinador"
               padding="1rem"
               _placeholder={{ color: "gray.400" }}
-              className="focus:ring focus:ring-gray-600"
+              className="focus:ring focus:ring-green-600"
               autoComplete="off"
             />
           </Field>
 
-          <Field label="Logo">
+          <Field label="Logo*">
             <Input
               name="logo"
               type="file"
@@ -80,14 +80,14 @@ const FormSponsor = ({
               padding="1rem"
               paddingBottom="3rem"
               _placeholder={{ color: "gray.400" }}
-              className="focus:ring focus:ring-gray-600"
+              className="focus:ring focus:ring-green-600"
             />
           </Field>
 
-          <Field label="Contato">
+          <Field label="Contato*">
             <Input
               name="contact"
-              type="number"
+              type="text"
               value={contact}
               onChange={(e) => setContact(e.target.value)}
               required
@@ -95,12 +95,12 @@ const FormSponsor = ({
               placeholder="Insira o contato do patrocinador"
               padding="1rem"
               _placeholder={{ color: "gray.400" }}
-              className="focus:ring focus:ring-gray-600"
+              className="focus:ring focus:ring-green-600"
               autoComplete="off"
             />
           </Field>
 
-          <Field label="URL">
+          <Field label="URL / Site*">
             <Input
               name="url"
               type="text"
@@ -111,7 +111,7 @@ const FormSponsor = ({
               placeholder="Insira a URL do patrocinador"
               padding="1rem"
               _placeholder={{ color: "gray.400" }}
-              className="focus:ring focus:ring-gray-600"
+              className="focus:ring focus:ring-green-600"
               autoComplete="off"
             />
           </Field>

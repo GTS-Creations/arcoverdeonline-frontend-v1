@@ -80,12 +80,33 @@ export default function EditSponsor() {
     }
   };
 
-  if (loading) return <p className="flex justify-center pt-8">Carregando...</p>;
-  if (error) return <p className="flex justify-center pt-8">{error}</p>;
-  if (!sponsor)
+  if (loading) {
     return (
-      <p className="flex justify-center pt-8">Patrocinador não encontrado.</p>
+      <div className="flex justify-center items-center h-screen">
+        <p className="text-green-700 text-xl font-semibold">Carregando...</p>
+      </div>
     );
+  }
+
+  if (!sponsor) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p className="text-red-700 text-xl font-semibold">
+          Patrocinador não encontrado.
+        </p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p className="text-red-700 text-xl font-semibold">
+          {error}
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className={user ? "lg:ml-56 sm:ml-0" : "ml-0"}>
