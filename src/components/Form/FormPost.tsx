@@ -64,6 +64,7 @@ const FormPost: React.FC<FormPostProps> = ({
               onChange={(e) => setTitle(e.target.value)}
               required
               paddingLeft="1rem"
+              border="1px solid #ddd"
               placeholder="Insira o título da publicação"
               className="focus:ring focus:ring-green-600"
               autoComplete="off"

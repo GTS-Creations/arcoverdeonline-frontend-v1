@@ -10,6 +10,7 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules";
 
 // COMPONENTE CHAKRA
 import { Button } from "@chakra-ui/react";
+import { FaPhone } from "react-icons/fa6";
 
 // HOOKS
 import Link from "next/link";
@@ -69,7 +70,7 @@ export default function Home() {
         <h2 className="text-center pt-4 text-2xl font-bold text-green-700 mb-8">
           Patrocinadores
         </h2>
-        <div className="carousel-container pb-16 lg:px-20">
+        <div className="carousel-container pb-16 lg:px-20 xl:w-7/12">
           <Swiper
             modules={[Navigation, Pagination, Autoplay]}
             navigation
@@ -94,7 +95,10 @@ export default function Home() {
                   <h3 className="text-green-700 text-lg pb-2 font-semibold">
                     {sponsor.name}
                   </h3>
-                  <p className="text-gray-600 break-all">{sponsor.contact}</p>
+                  <p className="text-gray-600 break-all flex items-center gap-2">
+                    <FaPhone />
+                    {sponsor.contact}
+                  </p>
                 </div>
               </SwiperSlide>
             ))}
