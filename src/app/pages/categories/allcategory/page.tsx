@@ -27,7 +27,7 @@ const AllCategory = () => {
       try {
         setLoading(true);
         const categoryData = await getAllCategory();
-        setCategories(categoryData);
+        setCategories(categoryData.content);
       } catch (error: any) {
         console.error("Erro ao carregar dados:", error.message);
       } finally {

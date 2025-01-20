@@ -30,18 +30,19 @@ export async function createSubCategory({
 
 
 // Rota que mostra todas as sub-categorias
-export async function getAllSubCategory() {
+export async function getAllSubCategory(page = 0, size = 20) {
   try {
-    const res = await apiRequest("/subcategories", {
+    const queryParams = new URLSearchParams({
+      page: page.toString(),
+      size: size.toString(),
+    });
+
+    const res = await apiRequest(`/subcategories?${queryParams.toString()}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
     });
-
-    if (!Array.isArray(res)) {
-      throw new Error("Erro ao listar sub-categorias.");
-    }
 
     return res;
   } catch (error: any) {

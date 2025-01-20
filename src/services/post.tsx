@@ -24,18 +24,19 @@ export async function createPost(formData: FormData) {
 
 
 // Rota que mostra todas as publicações
-export async function getAllPost() {
+export async function getAllPost(page = 0, size = 20) {
   try {
-    const res = await apiRequest("/posts", {
+    const queryParams = new URLSearchParams({
+      page: page.toString(),
+      size: size.toString(),
+    });
+
+    const res = await apiRequest(`/posts?${queryParams.toString()}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
     });
-
-    if (!Array.isArray(res)) {
-      throw new Error("Erro ao listar publicações.");
-    }
 
     return res;
   } catch (error: any) {

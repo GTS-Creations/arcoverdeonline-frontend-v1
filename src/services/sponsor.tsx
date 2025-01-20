@@ -25,18 +25,19 @@ export async function createSponsor(formData: FormData) {
 }
 
 // Rota que mostra todos os patrocinadores
-export async function getAllSponsor() {
+export async function getAllSponsor(page = 0, size = 20) {
   try {
-    const res = await apiRequest("/sponsors", {
+    const queryParams = new URLSearchParams({
+      page: page.toString(),
+      size: size.toString(),
+    });
+
+    const res = await apiRequest(`/sponsors?${queryParams.toString()}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
     });
-
-    if (!Array.isArray(res)) {
-      throw new Error("Erro ao listar patrocinadores.");
-    }
 
     return res;
   } catch (error: any) {
@@ -46,6 +47,7 @@ export async function getAllSponsor() {
     );
   }
 }
+
 
 // Rota que mostra o patrocinador selecionado pelo ID
 export async function getSponsorId(id: any) {

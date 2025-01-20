@@ -28,7 +28,7 @@ const AllSponsor = () => {
       try {
         setLoading(true);
         const sponsorData = await getAllSponsor();
-        setSponsors(sponsorData);
+        setSponsors(sponsorData.content);
       } catch (error: any) {
         console.error("Erro ao carregar dados:", error.message);
       } finally {

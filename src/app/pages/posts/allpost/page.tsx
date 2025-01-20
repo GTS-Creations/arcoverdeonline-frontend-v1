@@ -30,7 +30,7 @@ const AllPost = () => {
       try {
         setLoading(true);
         const postData = await getAllPost();
-        setPosts(postData);
+        setPosts(postData.content);
       } catch (error: any) {
         console.error("Erro ao carregar dados:", error.message);
       } finally {

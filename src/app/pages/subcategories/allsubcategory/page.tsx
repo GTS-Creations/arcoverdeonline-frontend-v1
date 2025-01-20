@@ -19,7 +19,7 @@ interface SubCategory {
 }
 
 const AllSubCategory = () => {
-  const [subCategories, setSubCategories] = useState<SubCategory[]>([]);
+  const [subCategories, setSubCategories] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const { categories } = useGetCategory();
   const isAuthenticated = useAuthStatus();
@@ -29,7 +29,7 @@ const AllSubCategory = () => {
       try {
         setLoading(true);
         const subCategoryData = await getAllSubCategory();
-        setSubCategories(subCategoryData);
+        setSubCategories(subCategoryData.content);
       } catch (error: any) {
         console.error("Erro ao carregar dados:", error.message);
       } finally {

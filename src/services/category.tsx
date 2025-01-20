@@ -23,9 +23,14 @@ export async function createCategory({ name }: { name: string }) {
 }
 
 // Rota que mostra todas as categorias
-export async function getAllCategory() {
+export async function getAllCategory(page = 0, size = 20) {
   try {
-    const res = await apiRequest("/categories", {
+    const queryParams = new URLSearchParams({
+      page: page.toString(),
+      size: size.toString(),
+    });
+
+    const res = await apiRequest(`/categories?${queryParams.toString()}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

@@ -53,7 +53,7 @@ export default function Footer() {
               <Image
                 src={logoGTS}
                 alt="Logo GTS Creations"
-                width={100}
+                height={50}
                 priority={true}
               />
             </Link>

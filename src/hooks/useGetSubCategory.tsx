@@ -22,8 +22,8 @@ export const useGetSubCategory = () => {
   useEffect(() => {
     const fetchSubCategories = async () => {
       try {
-        const data: SubCategory[] = await getAllSubCategory();
-        setSubCategories(data);
+        const data = await getAllSubCategory();
+        setSubCategories(data.content);
       } catch (error: any) {
         console.error("Erro ao carregar sub-categorias:", error.message);
       } finally {
