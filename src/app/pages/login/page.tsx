@@ -11,6 +11,7 @@ import { AuthContext } from "@/contexts/AuthContext";
 
 // HOOKS
 import { useState } from "react";
+import useAuthStatus from "@/hooks/useAuthStatus";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -19,17 +20,7 @@ export default function Login() {
   const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { LoginAdmin } = useContext(AuthContext);
-
-  const [user, setUser] = useState(false);
-
-  useEffect(() => {
-    const cookies = document.cookie
-      .split("; ")
-      .map((cookie) => cookie.split("="));
-    const tokenCookie = cookies.find(([key]) => key === "nextauth.token");
-
-    setUser(!!tokenCookie);
-  }, []);
+  const isAuthenticated = useAuthStatus();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -50,7 +41,7 @@ export default function Login() {
   };
 
   return (
-    <div className={user ? "lg:ml-56 sm:ml-0" : "ml-0"}>
+    <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
       <div className="flex items-center justify-center flex-col bg-white py-44">
         <form
           onSubmit={handleSubmit}

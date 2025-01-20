@@ -10,6 +10,7 @@ import { createPost } from "@/services/post";
 // HOOKS
 import { useEffect, useState } from "react";
 import { useGetSubCategory } from "@/hooks/useGetSubCategory";
+import useAuthStatus from "@/hooks/useAuthStatus";
 
 // COMPONENTES
 import FormPost from "@/components/Form/FormPost";
@@ -20,17 +21,7 @@ export default function CreatePost() {
   const [pdf, setPdf] = useState<File | any>(null);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
-
-  const [user, setUser] = useState(false);
-
-  useEffect(() => {
-    const cookies = document.cookie
-      .split("; ")
-      .map((cookie) => cookie.split("="));
-    const tokenCookie = cookies.find(([key]) => key === "nextauth.token");
-
-    setUser(!!tokenCookie);
-  }, []);
+  const isAuthenticated = useAuthStatus();
 
   const { subCategories, subCategoryId, setSubCategoryId, handleChange } =
     useGetSubCategory();
@@ -81,7 +72,7 @@ export default function CreatePost() {
   };
 
   return (
-    <div className={user ? "lg:ml-56 sm:ml-0" : "ml-0"}>
+    <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
       <div className="flex items-center flex-col bg-white pt-10 h-screen">
         <form
           onSubmit={handleSubmit}

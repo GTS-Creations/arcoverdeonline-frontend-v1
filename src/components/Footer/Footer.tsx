@@ -3,24 +3,16 @@
 import Link from "next/link";
 
 import { useEffect, useState } from "react";
+import useAuthStatus from "@/hooks/useAuthStatus";
 
 import Image from "next/image";
 import logoGTS from "@/assets/images/logoGTS.png";
 
 export default function Footer() {
-  const [user, setUser] = useState(false);
-
-  useEffect(() => {
-    const cookies = document.cookie
-      .split("; ")
-      .map((cookie) => cookie.split("="));
-    const tokenCookie = cookies.find(([key]) => key === "nextauth.token");
-
-    setUser(!!tokenCookie);
-  }, []);
+  const isAuthenticated = useAuthStatus();
 
   return (
-    <div className={user ? "lg:ml-56 sm:ml0" : "ml-0"}>
+    <div className={isAuthenticated ? "lg:ml-56 sm:ml0" : "ml-0"}>
       <footer className="pt-8 pb-4 bg-green-50 text-green-800 border-t-2 border-green-700">
         <div className="max-w-6xl mx-auto flex flex-wrap justify-between items-start gap-8 px-4 pb-8">
 

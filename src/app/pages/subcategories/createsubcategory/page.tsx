@@ -10,6 +10,7 @@ import { createSubCategory } from "@/services/subCategory";
 // HOOKS
 import { useEffect, useState } from "react";
 import { useGetCategory } from "@/hooks/useGetCategory";
+import useAuthStatus from "@/hooks/useAuthStatus";
 
 // COMPONENTES
 import FormSubCategory from "@/components/Form/FormSubCategory";
@@ -19,17 +20,7 @@ export default function CreateSubCategory() {
   const [name, setName] = useState("");
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
-
-  const [user, setUser] = useState(false);
-
-  useEffect(() => {
-    const cookies = document.cookie
-      .split("; ")
-      .map((cookie) => cookie.split("="));
-    const tokenCookie = cookies.find(([key]) => key === "nextauth.token");
-
-    setUser(!!tokenCookie);
-  }, []);
+  const isAuthenticated = useAuthStatus();
 
   const { categories, categoryId, setCategoryId, handleChange } =
     useGetCategory();
@@ -57,7 +48,7 @@ export default function CreateSubCategory() {
   };
 
   return (
-    <div className={user ? "lg:ml-56 sm:ml-0" : "ml-0"}>
+    <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
       <div className="flex items-center h-screen flex-col bg-white pt-10">
         <form
           onSubmit={handleSubmit}

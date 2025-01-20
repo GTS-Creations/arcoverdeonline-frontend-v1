@@ -1,31 +1,23 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Stack } from "@chakra-ui/react";
+import { Alert } from "@/components/ui/alert";
+
+import { useState } from "react";
+import useAuthStatus from "@/hooks/useAuthStatus";
+
 import FormSponsor from "@/components/Form/FormSponsor";
 import ButtonFormCreate from "@/components/ButtonCreate/ButtonFormCreate";
 import { createSponsor } from "@/services/sponsor";
-import { Stack } from "@chakra-ui/react";
-import { Alert } from "@/components/ui/alert";
 
 export default function CreateSponsor() {
   const [name, setName] = useState<string>("");
   const [logo, setLogo] = useState<File | null>(null);
   const [contact, setContact] = useState<string>("");
   const [url, setUrl] = useState<string>("");
-
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
-
-  const [user, setUser] = useState(false);
-
-  useEffect(() => {
-    const cookies = document.cookie
-      .split("; ")
-      .map((cookie) => cookie.split("="));
-    const tokenCookie = cookies.find(([key]) => key === "nextauth.token");
-
-    setUser(!!tokenCookie);
-  }, []);
+  const isAuthenticated = useAuthStatus();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -55,7 +47,7 @@ export default function CreateSponsor() {
   };
 
   return (
-    <div className={user ? "lg:ml-56 sm:ml-0" : "ml-0"}>
+    <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
       <div className="flex items-center flex-col bg-white h-screen pt-10">
         <form
           onSubmit={handleSubmit}

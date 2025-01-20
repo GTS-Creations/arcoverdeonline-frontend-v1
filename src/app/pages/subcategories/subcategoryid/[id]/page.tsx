@@ -7,6 +7,7 @@ import { Button } from "@chakra-ui/react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import useAuthStatus from "@/hooks/useAuthStatus";
 
 // SERVICES
 import { getSubCategoryId } from "@/services/subCategory";
@@ -28,17 +29,7 @@ export default function SubCategoryDetails() {
   const [subCategory, setSubCategory] = useState<SubCategory | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [user, setUser] = useState(false);
-
-  // Verifica se o usuário está autenticado
-  useEffect(() => {
-    const cookies = document.cookie
-      .split("; ")
-      .map((cookie) => cookie.split("="));
-    const tokenCookie = cookies.find(([key]) => key === "nextauth.token");
-
-    setUser(!!tokenCookie);
-  }, []);
+  const isAuthenticated = useAuthStatus();
 
   // Carrega a subcategoria e publicações
   useEffect(() => {
@@ -98,7 +89,7 @@ export default function SubCategoryDetails() {
 
   // Renderiza a página
   return (
-    <div className={user ? "lg:ml-56 sm:ml-0" : "ml-0"}>
+    <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
       <div className="px-4 bg-white pt-10 h-screen">
         <div className="max-w-5xl mx-auto">
           {/* Título da subcategoria */}

@@ -6,6 +6,7 @@ import { Avatar } from "@/components/ui/avatar";
 import { IoMdMenu } from "react-icons/io";
 
 import { useEffect, useState } from "react";
+import useAuthStatus from "@/hooks/useAuthStatus";
 import { logout } from "@/services/auth";
 
 import {
@@ -18,21 +19,10 @@ import {
 } from "@/components/ui/drawer";
 
 const Sidebar: React.FC = () => {
-  const [user, setUser] = useState(false);
-
-  useEffect(() => {
-    // Verifica se o cookie "token" existe
-    const cookies = document.cookie
-      .split("; ")
-      .map((cookie) => cookie.split("="));
-    const tokenCookie = cookies.find(([key]) => key === "nextauth.token");
-
-    // Habilita a sidebar se o token estiver presente
-    setUser(!!tokenCookie);
-  }, []);
+  const isAuthenticated = useAuthStatus();
 
   return (
-    <div className={user ? "block" : "hidden"}>
+    <div className={isAuthenticated ? "block" : "hidden"}>
       <div className="w-56 h-full bg-green-50 text-gray-800 fixed top-0 left-0 shadow-md shadow-black hidden lg:block">
         <nav className="flex flex-col py-16 px-4 gap-4">
           <div className="px-16">

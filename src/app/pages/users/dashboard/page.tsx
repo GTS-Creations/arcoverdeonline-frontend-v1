@@ -2,21 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { getUserInfo } from "@/services/auth";
+import useAuthStatus from "@/hooks/useAuthStatus";
 
 export default function Dashboard() {
   const [userInfo, setUserInfo] = useState(null);
   const [loading, setLoading] = useState(true);
-
-  const [user, setUser] = useState(false);
-
-  useEffect(() => {
-    const cookies = document.cookie
-      .split("; ")
-      .map((cookie) => cookie.split("="));
-    const tokenCookie = cookies.find(([key]) => key === "nextauth.token");
-
-    setUser(!!tokenCookie);
-  }, []);
+  const isAuthenticated = useAuthStatus();
 
   useEffect(() => {
     const getUser = async () => {
@@ -37,12 +28,12 @@ export default function Dashboard() {
     return <p>Carregando...</p>;
   }
 
-  if (!user) {
+  if (!isAuthenticated) {
     return <p>Erro ao carregar informações do usuário</p>;
   }
 
   return (
-    <div className={user ? "lg:ml-56 sm:ml-0" : "ml-0"}>
+    <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
       <h1>Bem-vindo, {userInfo}!</h1>
     </div>
   );

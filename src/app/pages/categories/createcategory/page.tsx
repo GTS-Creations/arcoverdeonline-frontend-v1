@@ -9,6 +9,7 @@ import { createCategory } from "@/services/category";
 
 // HOOKS
 import { useEffect, useState } from "react";
+import useAuthStatus from "@/hooks/useAuthStatus";
 
 // COMPONENTES
 import FormCategory from "@/components/Form/FormCategory";
@@ -18,17 +19,7 @@ export default function CreateCategory() {
   const [name, setName] = useState("");
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
-
-  const [user, setUser] = useState(false);
-
-  useEffect(() => {
-    const cookies = document.cookie
-      .split("; ")
-      .map((cookie) => cookie.split("="));
-    const tokenCookie = cookies.find(([key]) => key === "nextauth.token");
-
-    setUser(!!tokenCookie);
-  }, []);
+  const isAuthenticated = useAuthStatus();
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -53,7 +44,7 @@ export default function CreateCategory() {
   };
 
   return (
-    <div className={user ? "lg:ml-56 sm:ml-0" : "ml-0"}>
+    <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
       <div className="flex items-center pt-10 flex-col bg-white h-screen">
         <form
           onSubmit={handleSubmit}

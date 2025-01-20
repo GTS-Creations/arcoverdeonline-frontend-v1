@@ -2,8 +2,11 @@
 
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { getPostId, updatePost } from "@/services/post";
 import { useGetSubCategory } from "@/hooks/useGetSubCategory";
+import useAuthStatus from "@/hooks/useAuthStatus";
+
+import { getPostId, updatePost } from "@/services/post";
+
 import FormPost from "@/components/Form/FormPost";
 import DialogFormEdit from "@/components/DialogForm/DialogFormEdit";
 
@@ -11,21 +14,10 @@ export default function EditPost() {
   const { id } = useParams();
   const [title, setTitle] = useState("");
   const [pdf, setPdf] = useState<File | null>(null); // Alterado para aceitar `null`
-
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-
-  const [user, setUser] = useState(false);
-
-  useEffect(() => {
-    const cookies = document.cookie
-      .split("; ")
-      .map((cookie) => cookie.split("="));
-    const tokenCookie = cookies.find(([key]) => key === "nextauth.token");
-
-    setUser(!!tokenCookie);
-  }, []);
+  const isAuthenticated = useAuthStatus();
 
   const { subCategories, subCategoryId, setSubCategoryId, handleChange } =
     useGetSubCategory();
@@ -90,7 +82,7 @@ export default function EditPost() {
   }
 
   return (
-    <div className={user ? "lg:ml-56 sm:ml-0" : "ml-0"}>
+    <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
       <div className="flex items-center flex-col pt-10 h-screen bg-white">
         <form className="w-full max-w-md p-6 bg-white shadow-lg rounded-lg">
           <FormPost

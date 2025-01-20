@@ -4,17 +4,11 @@ import Link from "next/link";
 import Image from "next/image";
 import logo from "../../assets/images/ArcoverdeOnline.png";
 import { useState, useEffect } from "react";
+import useAuthStatus from "@/hooks/useAuthStatus";
 
 export default function Navbar() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [user, setUser] = useState(false);
-
-  useEffect(() => {
-    const cookies = document.cookie.split("; ").map((cookie) => cookie.split("="));
-    const tokenCookie = cookies.find(([key]) => key === "nextauth.token");
-
-    setUser(!!tokenCookie);
-  }, []);
+  const isAuthenticated = useAuthStatus();
 
   const handleInputChange = (event: any) => {
     setSearchTerm(event.target.value);
@@ -26,7 +20,7 @@ export default function Navbar() {
   };
 
   return (
-    <div className={user ? "lg:ml-56 sm:ml0" : "ml-0"}>
+    <div className={isAuthenticated ? "lg:ml-56 sm:ml0" : "ml-0"}>
       <nav className="py-4 px-1 sm:px-5 w-full border-b border-green-700 shadow-md bg-green-50">
         <div className="max-w-6xl mx-auto flex justify-between items-center">
           <div>

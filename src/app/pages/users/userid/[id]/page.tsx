@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { getUserId } from "@/services/user";
 import Link from "next/link";
 import { Button } from "@chakra-ui/react";
+import useAuthStatus from "@/hooks/useAuthStatus";
 
 interface User {
   name: string;
@@ -13,17 +14,7 @@ interface User {
 const UserId = () => {
   const [user, setUser] = useState<User | null>(null);
   const [error, setError] = useState<string | null>(null);
-
-  const [token, setToken] = useState(false);
-
-  useEffect(() => {
-    const cookies = document.cookie
-      .split("; ")
-      .map((cookie) => cookie.split("="));
-    const tokenCookie = cookies.find(([key]) => key === "nextauth.token");
-
-    setToken(!!tokenCookie);
-  }, []);
+  const isAuthenticated = useAuthStatus();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -40,7 +31,7 @@ const UserId = () => {
   }, []);
 
   return (
-    <div className={token ? "lg:ml-56 sm:ml-0" : "ml-0"}>
+    <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
       <div className="min-h-screen px-4 flex justify-center bg-white pb-16">
         <div className="bg-white p-8 max-w-md w-full">
           {error ? (

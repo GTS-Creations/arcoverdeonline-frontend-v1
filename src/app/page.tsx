@@ -15,6 +15,7 @@ import { FaPhone } from "react-icons/fa6";
 // HOOKS
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import useAuthStatus from "@/hooks/useAuthStatus";
 
 // SERVICES
 import { getAllCategory } from "@/services/category";
@@ -24,17 +25,7 @@ export default function Home() {
   const [categories, setCategories] = useState<any[]>([]);
   const [sponsors, setSponsors] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-
-  const [user, setUser] = useState(false);
-
-  useEffect(() => {
-    const cookies = document.cookie
-      .split("; ")
-      .map((cookie) => cookie.split("="));
-    const tokenCookie = cookies.find(([key]) => key === "nextauth.token");
-
-    setUser(!!tokenCookie);
-  }, []);
+  const isAuthenticated = useAuthStatus();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -65,7 +56,7 @@ export default function Home() {
   }
 
   return (
-    <div className={user ? "lg:ml-56 sm:ml-0" : "ml-0"}>
+    <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
       <div className="min-h-screen px-4 bg-white pb-16">
         <h2 className="text-center pt-4 text-2xl font-bold text-green-700 mb-8">
           Patrocinadores

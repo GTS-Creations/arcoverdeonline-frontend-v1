@@ -7,6 +7,7 @@ import { Button } from "@chakra-ui/react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import useAuthStatus from "@/hooks/useAuthStatus";
 
 // SERVICES
 import { getCategoryId } from "@/services/category";
@@ -27,17 +28,7 @@ export default function CategoryDetails() {
   const [category, setCategory] = useState<Category | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
-  const [user, setUser] = useState(false);
-
-  useEffect(() => {
-    const cookies = document.cookie
-      .split("; ")
-      .map((cookie) => cookie.split("="));
-    const tokenCookie = cookies.find(([key]) => key === "nextauth.token");
-
-    setUser(!!tokenCookie);
-  }, []);
+  const isAuthenticated = useAuthStatus();
 
   useEffect(() => {
     if (!id) return;
@@ -92,7 +83,7 @@ export default function CategoryDetails() {
   }
 
   return (
-    <div className={user ? "lg:ml-56 sm:ml-0" : "ml-0"}>
+    <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
       <div className="h-screen px-4 pt-10 bg-white">
         <div className="max-w-5xl mx-auto">
           <h1 className="text-4xl font-bold text-center text-green-700 pb-6">

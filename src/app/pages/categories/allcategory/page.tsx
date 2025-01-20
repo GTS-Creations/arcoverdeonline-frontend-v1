@@ -6,6 +6,7 @@ import { Button, Table } from "@chakra-ui/react";
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import useAuthStatus from "@/hooks/useAuthStatus";
 
 import { getAllCategory, deleteCategory } from "@/services/category";
 import DialogFormDelete from "@/components/DialogForm/DialogFormDelete";
@@ -19,17 +20,7 @@ interface Category {
 const AllCategory = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
-
-  const [user, setUser] = useState(false);
-
-  useEffect(() => {
-    const cookies = document.cookie
-      .split("; ")
-      .map((cookie) => cookie.split("="));
-    const tokenCookie = cookies.find(([key]) => key === "nextauth.token");
-
-    setUser(!!tokenCookie);
-  }, []);
+  const isAuthenticated = useAuthStatus();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -77,7 +68,7 @@ const AllCategory = () => {
   }
 
   return (
-    <div className={user ? "lg:ml-56 sm:ml-0" : "ml-0"}>
+    <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
       <div className="sm:px-5 h-screen pt-10 bg-white">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-center text-2xl font-bold text-green-700 pb-5">

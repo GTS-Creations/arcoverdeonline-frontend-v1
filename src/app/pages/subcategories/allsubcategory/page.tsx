@@ -2,11 +2,14 @@
 
 import { BsPencil } from "react-icons/bs";
 import { Button, Table } from "@chakra-ui/react";
+
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useGetCategory } from "@/hooks/useGetCategory";
+import useAuthStatus from "@/hooks/useAuthStatus";
+
 import { getAllSubCategory, deleteSubCategory } from "@/services/subCategory";
 import DialogFormDelete from "@/components/DialogForm/DialogFormDelete";
-import { useGetCategory } from "@/hooks/useGetCategory";
 import ButtonPageAllCreate from "@/components/ButtonCreate/ButtonPageAllCreate";
 
 interface SubCategory {
@@ -19,17 +22,7 @@ const AllSubCategory = () => {
   const [subCategories, setSubCategories] = useState<SubCategory[]>([]);
   const [loading, setLoading] = useState(true);
   const { categories } = useGetCategory();
-
-  const [user, setUser] = useState(false);
-
-  useEffect(() => {
-    const cookies = document.cookie
-      .split("; ")
-      .map((cookie) => cookie.split("="));
-    const tokenCookie = cookies.find(([key]) => key === "nextauth.token");
-
-    setUser(!!tokenCookie);
-  }, []);
+  const isAuthenticated = useAuthStatus();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -75,7 +68,7 @@ const AllSubCategory = () => {
   }
 
   return (
-    <div className={user ? "lg:ml-56 sm:ml-0" : "ml-0"}>
+    <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
       <div className="pt-10 sm:px-5 h-screen bg-white">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-center text-2xl font-bold text-green-700 pb-5">

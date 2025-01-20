@@ -3,6 +3,7 @@
 // HOOKS
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import useAuthStatus from "@/hooks/useAuthStatus";
 
 // SERVICES
 import { getSubCategoryId, updateSubCategory } from "@/services/subCategory";
@@ -15,21 +16,10 @@ import DialogFormEdit from "@/components/DialogForm/DialogFormEdit";
 export default function EditSubCategory() {
   const { id } = useParams();
   const [name, setName] = useState("");
-
   const [subCategory, setSubCategory] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<any>(null);
-
-  const [user, setUser] = useState(false);
-
-  useEffect(() => {
-    const cookies = document.cookie
-      .split("; ")
-      .map((cookie) => cookie.split("="));
-    const tokenCookie = cookies.find(([key]) => key === "nextauth.token");
-
-    setUser(!!tokenCookie);
-  }, []);
+  const isAuthenticated = useAuthStatus();
 
   const { categories, categoryId, setCategoryId, handleChange } =
     useGetCategory();
@@ -95,7 +85,7 @@ export default function EditSubCategory() {
   }
 
   return (
-    <div className={user ? "lg:ml-56 sm:ml-0" : "ml-0"}>
+    <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
       <div className="flex items-center flex-col pt-10 h-screen bg-white">
         <form className="w-full max-w-md p-6 bg-white shadow-lg rounded-lg">
           <FormSubCategory

@@ -1,11 +1,11 @@
 "use client";
 
 import { BsPencil } from "react-icons/bs";
-
 import { Button, Table } from "@chakra-ui/react";
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import useAuthStatus from "@/hooks/useAuthStatus";
 
 import { getAllSponsor, deleteSponsor } from "@/services/sponsor";
 import DialogFormDelete from "@/components/DialogForm/DialogFormDelete";
@@ -21,17 +21,7 @@ interface Sponsor {
 const AllSponsor = () => {
   const [sponsors, setSponsors] = useState<Sponsor[]>([]);
   const [loading, setLoading] = useState(true);
-
-  const [user, setUser] = useState(false);
-
-  useEffect(() => {
-    const cookies = document.cookie
-      .split("; ")
-      .map((cookie) => cookie.split("="));
-    const tokenCookie = cookies.find(([key]) => key === "nextauth.token");
-
-    setUser(!!tokenCookie);
-  }, []);
+  const isAuthenticated = useAuthStatus();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -77,7 +67,7 @@ const AllSponsor = () => {
   }
 
   return (
-    <div className={user ? "lg:ml-56 sm:ml-0" : "ml-0"}>
+    <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
       <div className="py-20 sm:px-5 h-screen bg-white">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-center text-2xl font-bold text-green-700 pb-5">
