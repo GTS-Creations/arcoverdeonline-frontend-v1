@@ -33,15 +33,15 @@ const DialogFormDelete = ({ handleDelete }: any) => {
   }, [pathname]);
 
   return (
-    <div className="flex justify-between">
+    <div className="flex">
       <DialogRoot role="alertdialog" placement="center">
         <DialogTrigger asChild>
           <Button
-            variant="outline"
+            variant="solid"
             size="sm"
-            border="1px solid red"
-            width="full"
-            color="red"
+            padding="1rem"
+            backgroundColor="red"
+            color="white"
           >
             <span className="hidden sm:block">Apagar</span>
             <BsTrash />

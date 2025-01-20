@@ -1,13 +1,16 @@
 "use client";
 
 import { BsPencil } from "react-icons/bs";
-
-import { Button, Table } from "@chakra-ui/react";
-
+import { Button, Table, HStack, Stack, Group } from "@chakra-ui/react";
+import {
+  PaginationItems,
+  PaginationNextTrigger,
+  PaginationPrevTrigger,
+  PaginationRoot,
+} from "@/components/ui/pagination";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import useAuthStatus from "@/hooks/useAuthStatus";
-
 import { getAllCategory, deleteCategory } from "@/services/category";
 import DialogFormDelete from "@/components/DialogForm/DialogFormDelete";
 import ButtonPageAllCreate from "@/components/ButtonCreate/ButtonPageAllCreate";
@@ -20,29 +23,31 @@ interface Category {
 const AllCategory = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(0);
+  const [totalItems, setTotalItems] = useState(0);
   const isAuthenticated = useAuthStatus();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setLoading(true);
-        const categoryData = await getAllCategory();
-        setCategories(categoryData.content);
+        const categoryData = await getAllCategory(page, 10);
+        setCategories(categoryData.content || []);
+        setTotalItems(categoryData.totalElements || 0);
       } catch (error: any) {
-        console.error("Erro ao carregar dados:", error.message);
+        console.error("Erro ao carregar categorias:", error.message);
       } finally {
         setLoading(false);
       }
     };
 
     fetchData();
-  }, []);
+  }, [page]);
 
   const handleDelete = async (categoryId: string) => {
     try {
       await deleteCategory(categoryId);
-      setCategories((prevCategories) =>
-        prevCategories.filter((category) => category.id !== categoryId)
+      setCategories((prev) =>
+        prev.filter((category) => category.id !== categoryId)
       );
     } catch (error) {
       window.location.reload();
@@ -57,11 +62,11 @@ const AllCategory = () => {
     );
   }
 
-  if (!categories) {
+  if (!categories || categories.length === 0) {
     return (
       <div className="flex justify-center items-center h-screen">
         <p className="text-red-700 text-xl font-semibold">
-          Categorias não encontradas.
+          Nenhuma categoria encontrada.
         </p>
       </div>
     );
@@ -80,53 +85,75 @@ const AllCategory = () => {
           </div>
 
           <div>
-            <Table.Root size="sm">
-              <Table.Header>
-                <Table.Row
-                  backgroundColor="transparent"
-                  borderBottom="1px solid #ddd"
-                >
-                  <Table.ColumnHeader color="green.700">
-                    Nome
-                  </Table.ColumnHeader>
-                </Table.Row>
-              </Table.Header>
-
-              <Table.Body>
-                {categories.map((categ) => (
+            <Stack width="full" gap="5">
+              <Table.Root size="sm">
+                <Table.Header>
                   <Table.Row
-                    key={categ.id}
                     backgroundColor="transparent"
                     borderBottom="1px solid #ddd"
                   >
-                    <Table.Cell color="green.700">{categ.name}</Table.Cell>
+                    <Table.ColumnHeader color="green.700" fontWeight="700">
+                      Nome
+                    </Table.ColumnHeader>
 
-                    <Table.Cell textAlign="right">
-                      <Link href={`/pages/categories/editcategory/${categ.id}`}>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          border="1px solid green"
-                          width="full"
-                          color="green"
-                        >
-                          <span className="hidden sm:block">Editar</span>
-                          <BsPencil />
-                        </Button>
-                      </Link>
-                    </Table.Cell>
-
-                    <Table.Cell>
-                      <DialogFormDelete
-                        handleDelete={() => handleDelete(categ.id)}
-                      >
-                        <span className="hidden sm:block">Apagar</span>
-                      </DialogFormDelete>
-                    </Table.Cell>
                   </Table.Row>
-                ))}
-              </Table.Body>
-            </Table.Root>
+                </Table.Header>
+
+                <Table.Body>
+                  {categories.map((categ) => (
+                    <Table.Row
+                      key={categ.id}
+                      backgroundColor="transparent"
+                      borderBottom="1px solid #ddd"
+                    >
+                      <Table.Cell color="green.700" className="pr-20 md:pr-56 lg:pr-96">{categ.name}</Table.Cell>
+
+                      <Table.Cell textAlign="end">
+                        <Link
+                          href={`/pages/categories/editcategory/${categ.id}`}
+                        >
+                          <Button
+                            variant="solid"
+                            size="sm"
+                            padding="1rem"
+                            backgroundColor="green.700"
+                            color="white"
+                          >
+                            <span className="hidden sm:block">Editar</span>
+                            <BsPencil />
+                          </Button>
+                        </Link>
+                      </Table.Cell>
+
+                      <Table.Cell textAlign="end">
+                        <DialogFormDelete
+                          handleDelete={() => handleDelete(categ.id)}
+                        >
+                          <span className="hidden sm:block">Apagar</span>
+                        </DialogFormDelete>
+                      </Table.Cell>
+                    </Table.Row>
+                  ))}
+                </Table.Body>
+              </Table.Root>
+
+              <PaginationRoot
+                count={totalItems}
+                pageSize={10}
+                page={page + 1}
+                onPageChange={(e) => setPage(e.page - 1)}
+                color="white"
+                backgroundColor="green.700"
+              >
+                <HStack wrap="wrap">
+                  <Group attached>
+                    <PaginationPrevTrigger />
+                    <PaginationItems className="hover:border-white hover:border focus:border focus:border-white" />
+                    <PaginationNextTrigger />
+                  </Group>
+                </HStack>
+              </PaginationRoot>
+            </Stack>
           </div>
         </div>
       </div>

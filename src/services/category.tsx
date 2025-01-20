@@ -23,7 +23,7 @@ export async function createCategory({ name }: { name: string }) {
 }
 
 // Rota que mostra todas as categorias
-export async function getAllCategory(page = 0, size = 20) {
+export async function getAllCategory(page: number, size: number){
   try {
     const queryParams = new URLSearchParams({
       page: page.toString(),
