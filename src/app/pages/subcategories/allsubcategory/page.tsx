@@ -1,44 +1,60 @@
 "use client";
 
 import { BsPencil } from "react-icons/bs";
-import { Button, Table } from "@chakra-ui/react";
-
+import { Button, HStack, Stack, Table } from "@chakra-ui/react";
+import {
+  PaginationItems,
+  PaginationNextTrigger,
+  PaginationPrevTrigger,
+  PaginationRoot,
+} from "@/components/ui/pagination";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { useGetCategory } from "@/hooks/useGetCategory";
-import useAuthStatus from "@/hooks/useAuthStatus";
 
-import { getAllSubCategory, deleteSubCategory } from "@/services/subCategory";
+import { useEffect, useState } from "react";
+import useAuthStatus from "@/hooks/useAuthStatus";
 import DialogFormDelete from "@/components/DialogForm/DialogFormDelete";
 import ButtonPageAllCreate from "@/components/ButtonCreate/ButtonPageAllCreate";
+import { deleteSubCategory, getAllSubCategory } from "@/services/subCategory";
+import { getAllCategory } from "@/services/category";
 
 interface SubCategory {
   id: string;
   name: string;
-  categoryId: string;
+}
+
+interface Category {
+  id: string;
+  name: string;
+  subCategories: SubCategory[];
 }
 
 const AllSubCategory = () => {
-  const [subCategories, setSubCategories] = useState<any[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [subCategories, setSubCategories] = useState<SubCategory[]>([]);
+  const [page, setPage] = useState(0);
+  const [totalItems, setTotalItems] = useState(0);
   const [loading, setLoading] = useState(true);
-  const { categories } = useGetCategory();
   const isAuthenticated = useAuthStatus();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const subCategoryData = await getAllSubCategory();
-        setSubCategories(subCategoryData.content);
-      } catch (error: any) {
-        console.error("Erro ao carregar dados:", error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchData = async () => {
+    try {
+      const subCategoryData = await getAllSubCategory(page, 10);
+      setSubCategories(subCategoryData.content);
 
+      const categoryData = await getAllCategory(0, 1000000000000000);
+      setCategories(categoryData.content);
+
+      setTotalItems(subCategoryData.totalElements);
+    } catch (error: any) {
+      console.error("Erro ao carregar dados:", error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     fetchData();
-  }, []);
+  }, [page]);
 
   const handleDelete = async (subCategoryId: string) => {
     try {
@@ -47,7 +63,7 @@ const AllSubCategory = () => {
         prev.filter((subCateg) => subCateg.id !== subCategoryId)
       );
     } catch (error: any) {
-      window.location.reload();
+      console.log(error);
     }
   };
 
@@ -62,7 +78,9 @@ const AllSubCategory = () => {
   if (!subCategories) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <p className="text-red-700 text-xl font-semibold">Sub-categorias não encontradas.</p>
+        <p className="text-red-700 text-xl font-semibold">
+          Sub-categorias não encontradas.
+        </p>
       </div>
     );
   }
@@ -80,41 +98,52 @@ const AllSubCategory = () => {
           </div>
 
           <div>
-            <Table.Root size="sm">
-              <Table.Header>
-                <Table.Row
-                  backgroundColor="transparent"
-                  borderBottom="1px solid #ddd"
-                >
-                  <Table.ColumnHeader color="green.700">
-                    Nome
-                  </Table.ColumnHeader>
-                  <Table.ColumnHeader color="green.700">
-                    Categoria
-                  </Table.ColumnHeader>
-                </Table.Row>
-              </Table.Header>
-              <Table.Body>
-                {categories.map((category) =>
-                  category.subCategories.map((subCateg: any) => (
+            <Stack width="full" gap="5">
+              <Table.Root size="sm">
+                <Table.Header>
+                  <Table.Row
+                    backgroundColor="transparent"
+                    borderBottom="1px solid #ddd"
+                  >
+                    <Table.ColumnHeader color="green.700">
+                      Nome
+                    </Table.ColumnHeader>
+                    <Table.ColumnHeader color="green.700">
+                      Categoria
+                    </Table.ColumnHeader>
+                  </Table.Row>
+                </Table.Header>
+                <Table.Body>
+                  {subCategories.map((subCateg) => (
                     <Table.Row
                       key={subCateg.id}
                       backgroundColor="transparent"
                       borderBottom="1px solid #ddd"
                     >
                       <Table.Cell color="green.700">{subCateg.name}</Table.Cell>
-                      <Table.Cell color="green.700">{category.name}</Table.Cell>
+                      <Table.Cell
+                        color="green.700"
+                        className="pr-10 md:pr-80 lg:pr-96"
+                      >
+                        {
+                          categories.find((cat) =>
+                            cat.subCategories.some(
+                              (sub) => sub.id === subCateg.id
+                            )
+                          )?.name
+                        }
+                      </Table.Cell>
 
-                      <Table.Cell>
+                      <Table.Cell textAlign="end">
                         <Link
                           href={`/pages/subcategories/editsubcategory/${subCateg.id}`}
                         >
                           <Button
-                            variant="outline"
+                            variant="solid"
                             size="sm"
-                            border="1px solid green"
-                            width="full"
-                            color="green"
+                            padding="1rem"
+                            backgroundColor="green.700"
+                            color="white"
                           >
                             <span className="hidden sm:block">Editar</span>
                             <BsPencil />
@@ -122,7 +151,7 @@ const AllSubCategory = () => {
                         </Link>
                       </Table.Cell>
 
-                      <Table.Cell>
+                      <Table.Cell textAlign="end">
                         <DialogFormDelete
                           handleDelete={() => handleDelete(subCateg.id)}
                         >
@@ -130,10 +159,25 @@ const AllSubCategory = () => {
                         </DialogFormDelete>
                       </Table.Cell>
                     </Table.Row>
-                  ))
-                )}
-              </Table.Body>
-            </Table.Root>
+                  ))}
+                </Table.Body>
+              </Table.Root>
+
+              <PaginationRoot
+                count={totalItems}
+                pageSize={10}
+                page={page + 1}
+                onPageChange={(e) => setPage(e.page - 1)}
+                color="white"
+                backgroundColor="green.700"
+              >
+                <HStack wrap="wrap">
+                  <PaginationPrevTrigger />
+                  <PaginationItems className="hover:border-white hover:border focus:border focus:border-white" />
+                  <PaginationNextTrigger />
+                </HStack>
+              </PaginationRoot>
+            </Stack>
           </div>
         </div>
       </div>

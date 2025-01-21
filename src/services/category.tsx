@@ -23,7 +23,7 @@ export async function createCategory({ name }: { name: string }) {
 }
 
 // Rota que mostra todas as categorias
-export async function getAllCategory(page: number, size: number){
+export async function getAllCategory(page: number, size: number) {
   try {
     const queryParams = new URLSearchParams({
       page: page.toString(),
@@ -110,7 +110,7 @@ export async function updateCategory(
 }
 
 // Rota que deleta a categoria selecionada pelo ID
-export async function deleteCategory(id: any) {
+export async function deleteCategory(id: any): Promise<void> {
   if (!id) {
     throw new Error("O ID da categoria é obrigatório.");
   }
@@ -118,18 +118,19 @@ export async function deleteCategory(id: any) {
   const token = Cookies.get("nextauth.token");
 
   try {
-    const res = await apiRequest(`/categories/${id}`, {
+    await apiRequest(`/categories/${id}`, {
       method: "DELETE",
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
     });
-
-    return res;
   } catch (error: any) {
-    console.error(`Erro ao excluir a categoria com o ID ${id}:`, error.message || error);
-    throw new Error("Não foi possível excluir a categoria. Tente novamente mais tarde.");
+    console.error(
+      `Erro ao excluir a categoria com o ID ${id}:`,
+      error.message || error
+    );
+    throw new Error(
+      "Não foi possível excluir a categoria. Tente novamente mais tarde."
+    );
   }
 }
-

@@ -37,14 +37,13 @@ export default function CreateSubCategory() {
       });
 
       setSuccess(true);
+      setName("");
+      setCategoryId("");
       return newSubCategory;
     } catch (err) {
       console.error("Erro ao criar subcategoria:", err);
       setError(true);
     }
-
-    setName("");
-    setCategoryId("");
   };
 
   return (

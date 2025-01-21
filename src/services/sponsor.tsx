@@ -11,7 +11,7 @@ export async function createSponsor(formData: FormData) {
     const res = await apiRequestForm(`/sponsors`, {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
         // Não defina o 'Content-Type', o navegador vai lidar com isso
       },
       body: formData, // O corpo da requisição é o FormData
@@ -25,7 +25,7 @@ export async function createSponsor(formData: FormData) {
 }
 
 // Rota que mostra todos os patrocinadores
-export async function getAllSponsor(page = 0, size = 20) {
+export async function getAllSponsor(page: number, size: number) {
   try {
     const queryParams = new URLSearchParams({
       page: page.toString(),
@@ -47,7 +47,6 @@ export async function getAllSponsor(page = 0, size = 20) {
     );
   }
 }
-
 
 // Rota que mostra o patrocinador selecionado pelo ID
 export async function getSponsorId(id: any) {
@@ -91,7 +90,7 @@ export async function updateSponsor(
     const res = await apiRequestForm(`/sponsors/${id}`, {
       method: "PUT", // Método para atualizar
       headers: {
-        "Authorization": `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
         // Não defina o Content-Type, o navegador vai lidar com isso automaticamente
       },
       body: formData, // Corpo da requisição com o FormData
@@ -110,7 +109,7 @@ export async function updateSponsor(
 }
 
 // Rota que deleta o patrocinador selecionado pelo ID
-export async function deleteSponsor(id: any) {
+export async function deleteSponsor(id: any): Promise<void> {
   if (!id) {
     throw new Error("O ID do patrocinador é obrigatório.");
   }
@@ -118,15 +117,12 @@ export async function deleteSponsor(id: any) {
   const token = Cookies.get("nextauth.token");
 
   try {
-    const res = await apiRequest(`/sponsors/${id}`, {
+    await apiRequest(`/sponsors/${id}`, {
       method: "DELETE",
       headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
-
-    return res;
   } catch (error: any) {
     console.error(
       `Erro ao excluir o patrocinador com o ID ${id}:`,

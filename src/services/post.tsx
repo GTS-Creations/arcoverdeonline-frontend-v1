@@ -10,7 +10,7 @@ export async function createPost(formData: FormData) {
     const res = await apiRequestForm("/posts", {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
       body: formData,
     });
@@ -22,9 +22,8 @@ export async function createPost(formData: FormData) {
   }
 }
 
-
 // Rota que mostra todas as publicações
-export async function getAllPost(page = 0, size = 20) {
+export async function getAllPost(page: number, size: number) {
   try {
     const queryParams = new URLSearchParams({
       page: page.toString(),
@@ -121,7 +120,7 @@ export async function updatePost(
 }
 
 // Rota que deleta a publicação selecionada pelo ID
-export async function deletePost(id: any) {
+export async function deletePost(id: any): Promise<void> {
   if (!id) {
     throw new Error("O ID da publicação é obrigatório.");
   }
@@ -129,15 +128,12 @@ export async function deletePost(id: any) {
   const token = Cookies.get("nextauth.token");
 
   try {
-    const res = await apiRequest(`/posts/${id}`, {
+    await apiRequest(`/posts/${id}`, {
       method: "DELETE",
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
     });
-
-    return res;
   } catch (error: any) {
     console.error(
       `Erro ao excluir a publicação com o ID ${id}:`,

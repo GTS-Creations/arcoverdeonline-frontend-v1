@@ -44,6 +44,10 @@ export default function EditSubCategory() {
   }, [id]);
 
   const handleEdit = async (e: any) => {
+    if (!categoryId) {
+      return alert("Selecione uma categoria!");
+    }
+
     e.preventDefault();
 
     try {

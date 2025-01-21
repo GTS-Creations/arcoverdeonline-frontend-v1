@@ -16,7 +16,7 @@ export async function createSubCategory({
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({ name, categoryId, posts: [] }),
     });
@@ -28,9 +28,8 @@ export async function createSubCategory({
   }
 }
 
-
 // Rota que mostra todas as sub-categorias
-export async function getAllSubCategory(page = 0, size = 20) {
+export async function getAllSubCategory(page: number, size: number) {
   try {
     const queryParams = new URLSearchParams({
       page: page.toString(),
@@ -119,7 +118,7 @@ export async function updateSubCategory(
 }
 
 // Rota que deleta a sub-categoria selecionada pelo ID
-export async function deleteSubCategory(id: any) {
+export async function deleteSubCategory(id: any): Promise<void> {
   if (!id) {
     throw new Error("O ID da sub-categoria é obrigatório.");
   }
@@ -127,18 +126,14 @@ export async function deleteSubCategory(id: any) {
   const token = Cookies.get("nextauth.token");
 
   try {
-    const response = await apiRequest(`/subcategories/${id}`, {
+    await apiRequest(`/subcategories/${id}`, {
       method: "DELETE",
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
     });
-
-    return response;
   } catch (error: any) {
     console.error("Erro ao deletar subcategoria:", error.message);
     throw new Error("Erro ao excluir subcategoria.");
   }
 }
-

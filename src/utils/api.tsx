@@ -4,7 +4,7 @@ dotenv.config();
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 // funcao que faz o fetch das rotas
-export async function apiRequest(endpoint: string, options = {}) {
+export async function apiRequest(endpoint: string, options = {}): Promise<any> {
   const res = await fetch(`${BASE_URL}${endpoint}`, options);
 
   if (!res.ok) {
@@ -20,8 +20,12 @@ export async function apiRequest(endpoint: string, options = {}) {
     throw new Error(`Erro na API: ${res.status} - ${errorMessage}`);
   }
 
-  return res.json();
+  const contentType = res.headers.get("Content-Type");
+  if (contentType && contentType.includes("application/json")) {
+    return res.json();
+  }
 }
+
 
 export async function apiRequestForm(endpoint: string, options = {}) {
   const res = await fetch(`${BASE_URL}${endpoint}`, options);

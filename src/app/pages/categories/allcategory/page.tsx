@@ -1,7 +1,7 @@
 "use client";
 
 import { BsPencil } from "react-icons/bs";
-import { Button, Table, HStack, Stack, Group } from "@chakra-ui/react";
+import { Button, Table, HStack, Stack } from "@chakra-ui/react";
 import {
   PaginationItems,
   PaginationNextTrigger,
@@ -27,19 +27,19 @@ const AllCategory = () => {
   const [totalItems, setTotalItems] = useState(0);
   const isAuthenticated = useAuthStatus();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const categoryData = await getAllCategory(page, 10);
-        setCategories(categoryData.content || []);
-        setTotalItems(categoryData.totalElements || 0);
-      } catch (error: any) {
-        console.error("Erro ao carregar categorias:", error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchData = async () => {
+    try {
+      const categoryData = await getAllCategory(page, 10);
+      setCategories(categoryData.content);
+      setTotalItems(categoryData.totalElements);
+    } catch (error: any) {
+      console.error("Erro ao carregar categorias:", error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchData();
   }, [page]);
 
@@ -50,7 +50,7 @@ const AllCategory = () => {
         prev.filter((category) => category.id !== categoryId)
       );
     } catch (error) {
-      window.location.reload();
+      console.log(error);
     }
   };
 
@@ -62,7 +62,7 @@ const AllCategory = () => {
     );
   }
 
-  if (!categories || categories.length === 0) {
+  if (!categories) {
     return (
       <div className="flex justify-center items-center h-screen">
         <p className="text-red-700 text-xl font-semibold">
@@ -95,7 +95,6 @@ const AllCategory = () => {
                     <Table.ColumnHeader color="green.700" fontWeight="700">
                       Nome
                     </Table.ColumnHeader>
-
                   </Table.Row>
                 </Table.Header>
 
@@ -106,7 +105,12 @@ const AllCategory = () => {
                       backgroundColor="transparent"
                       borderBottom="1px solid #ddd"
                     >
-                      <Table.Cell color="green.700" className="pr-20 md:pr-56 lg:pr-96">{categ.name}</Table.Cell>
+                      <Table.Cell
+                        color="green.700"
+                        className="pr-20 md:pr-56 lg:pr-96"
+                      >
+                        {categ.name}
+                      </Table.Cell>
 
                       <Table.Cell textAlign="end">
                         <Link
@@ -146,11 +150,9 @@ const AllCategory = () => {
                 backgroundColor="green.700"
               >
                 <HStack wrap="wrap">
-                  <Group attached>
-                    <PaginationPrevTrigger />
-                    <PaginationItems className="hover:border-white hover:border focus:border focus:border-white" />
-                    <PaginationNextTrigger />
-                  </Group>
+                  <PaginationPrevTrigger />
+                  <PaginationItems className="hover:border-white hover:border focus:border focus:border-white" />
+                  <PaginationNextTrigger />
                 </HStack>
               </PaginationRoot>
             </Stack>
