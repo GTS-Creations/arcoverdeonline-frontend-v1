@@ -32,8 +32,8 @@ export default function Home() {
       try {
         setLoading(true);
         const [categoryData, sponsorData] = await Promise.all([
-          getAllCategory(0, 100),
-          getAllSponsor(0, 100),
+          getAllCategory(0, 1000000000000000),
+          getAllSponsor(0, 1000000000000000),
         ]);
         setCategories(categoryData.content);
         setSponsors(sponsorData.content);

@@ -1,13 +1,20 @@
 "use client";
 
 import { BsPencil } from "react-icons/bs";
-import { Button, Table } from "@chakra-ui/react";
+import { Button, HStack, Stack, Table } from "@chakra-ui/react";
+import {
+  PaginationItems,
+  PaginationNextTrigger,
+  PaginationPrevTrigger,
+  PaginationRoot,
+} from "@/components/ui/pagination";
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import useAuthStatus from "@/hooks/useAuthStatus";
 
 import { getAllSponsor, deleteSponsor } from "@/services/sponsor";
+
 import DialogFormDelete from "@/components/DialogForm/DialogFormDelete";
 import ButtonPageAllCreate from "@/components/ButtonCreate/ButtonPageAllCreate";
 
@@ -21,30 +28,32 @@ interface Sponsor {
 const AllSponsor = () => {
   const [sponsors, setSponsors] = useState<Sponsor[]>([]);
   const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(0);
+  const [totalItems, setTotalItems] = useState(0);
   const isAuthenticated = useAuthStatus();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const sponsorData = await getAllSponsor();
-        setSponsors(sponsorData.content);
-      } catch (error: any) {
-        console.error("Erro ao carregar dados:", error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchData = async () => {
+    try {
+      const sponsorData = await getAllSponsor(page, 10);
+      setSponsors(sponsorData.content);
+      setTotalItems(sponsorData.totalElements);
+    } catch (error: any) {
+      console.error("Erro ao carregar dados:", error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchData();
-  }, []);
+  }, [page]);
 
   const handleDelete = async (sponsorId: string) => {
     try {
       await deleteSponsor(sponsorId);
       setSponsors((prev) => prev.filter((sponsor) => sponsor.id !== sponsorId));
     } catch (error: any) {
-      window.location.reload();
+      console.log(error);
     }
   };
 
@@ -59,7 +68,7 @@ const AllSponsor = () => {
   if (!sponsors) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <p className="text-green-700 text-xl font-semibold">
+        <p className="text-red-700 text-xl font-semibold">
           Patrocinador não encontrado.
         </p>
       </div>
@@ -79,58 +88,83 @@ const AllSponsor = () => {
           </div>
 
           <div>
-            <Table.Root size="sm">
-              <Table.Header>
-                <Table.Row
-                  backgroundColor="transparent"
-                  borderBottom="1px solid #ddd"
-                >
-                  <Table.ColumnHeader color="green.700">
-                    Nome
-                  </Table.ColumnHeader>
-
-                  <Table.ColumnHeader color="green.700">
-                    Contato
-                  </Table.ColumnHeader>
-                </Table.Row>
-              </Table.Header>
-
-              <Table.Body>
-                {sponsors.map((sponsor) => (
+            <Stack width="full" gap="5">
+              <Table.Root size="sm">
+                <Table.Header>
                   <Table.Row
-                    key={sponsor.id}
                     backgroundColor="transparent"
                     borderBottom="1px solid #ddd"
                   >
-                    <Table.Cell color="green.700">{sponsor.name}</Table.Cell>
-                    <Table.Cell color="green.700" className="break-all">{sponsor.contact}</Table.Cell>
+                    <Table.ColumnHeader color="green.700" fontWeight="700">
+                      Nome
+                    </Table.ColumnHeader>
 
-                    <Table.Cell textAlign="right">
-                      <Link href={`/pages/sponsors/editsponsor/${sponsor.id}`}>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          border="1px solid green"
-                          width="full"
-                          color="green"
-                        >
-                          <span className="hidden sm:block">Editar</span>
-                          <BsPencil />
-                        </Button>
-                      </Link>
-                    </Table.Cell>
-
-                    <Table.Cell>
-                      <DialogFormDelete
-                        handleDelete={() => handleDelete(sponsor.id)}
-                      >
-                        <span className="hidden sm:block">Apagar</span>
-                      </DialogFormDelete>
-                    </Table.Cell>
+                    <Table.ColumnHeader color="green.700" fontWeight="700">
+                      Contato
+                    </Table.ColumnHeader>
                   </Table.Row>
-                ))}
-              </Table.Body>
-            </Table.Root>
+                </Table.Header>
+
+                <Table.Body>
+                  {sponsors.map((sponsor) => (
+                    <Table.Row
+                      key={sponsor.id}
+                      backgroundColor="transparent"
+                      borderBottom="1px solid #ddd"
+                    >
+                      <Table.Cell color="green.700">{sponsor.name}</Table.Cell>
+
+                      <Table.Cell
+                        color="green.700"
+                        className="break-all pr-20 md:pr-56 lg:pr-96"
+                      >
+                        {sponsor.contact}
+                      </Table.Cell>
+
+                      <Table.Cell textAlign="end">
+                        <Link
+                          href={`/pages/sponsors/editsponsor/${sponsor.id}`}
+                        >
+                          <Button
+                            variant="solid"
+                            size="sm"
+                            padding="1rem"
+                            backgroundColor="green.700"
+                            color="white"
+                          >
+                            <span className="hidden sm:block">Editar</span>
+                            <BsPencil />
+                          </Button>
+                        </Link>
+                      </Table.Cell>
+
+                      <Table.Cell textAlign="end">
+                        <DialogFormDelete
+                          handleDelete={() => handleDelete(sponsor.id)}
+                        >
+                          <span className="hidden sm:block">Apagar</span>
+                        </DialogFormDelete>
+                      </Table.Cell>
+                    </Table.Row>
+                  ))}
+                </Table.Body>
+              </Table.Root>
+
+              <PaginationRoot
+                count={totalItems}
+                pageSize={10}
+                page={page + 1}
+                onPageChange={(e) => setPage(e.page - 1)}
+                color="white"
+                backgroundColor="green.700"
+              >
+                <HStack wrap="wrap">
+                  <PaginationPrevTrigger />
+                  <PaginationItems className="hover:border-white hover:border focus:border focus:border-white" />
+                  <PaginationNextTrigger />
+                </HStack>
+              </PaginationRoot>
+            </Stack>
           </div>
         </div>
       </div>

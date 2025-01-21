@@ -8,14 +8,16 @@ import {
   PaginationPrevTrigger,
   PaginationRoot,
 } from "@/components/ui/pagination";
-import Link from "next/link";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import useAuthStatus from "@/hooks/useAuthStatus";
-import DialogFormDelete from "@/components/DialogForm/DialogFormDelete";
-import ButtonPageAllCreate from "@/components/ButtonCreate/ButtonPageAllCreate";
+
 import { deleteSubCategory, getAllSubCategory } from "@/services/subCategory";
 import { getAllCategory } from "@/services/category";
+
+import DialogFormDelete from "@/components/DialogForm/DialogFormDelete";
+import ButtonPageAllCreate from "@/components/ButtonCreate/ButtonPageAllCreate";
 
 interface SubCategory {
   id: string;
@@ -105,14 +107,15 @@ const AllSubCategory = () => {
                     backgroundColor="transparent"
                     borderBottom="1px solid #ddd"
                   >
-                    <Table.ColumnHeader color="green.700">
+                    <Table.ColumnHeader color="green.700" fontWeight="700">
                       Nome
                     </Table.ColumnHeader>
-                    <Table.ColumnHeader color="green.700">
+                    <Table.ColumnHeader color="green.700" fontWeight="700">
                       Categoria
                     </Table.ColumnHeader>
                   </Table.Row>
                 </Table.Header>
+
                 <Table.Body>
                   {subCategories.map((subCateg) => (
                     <Table.Row

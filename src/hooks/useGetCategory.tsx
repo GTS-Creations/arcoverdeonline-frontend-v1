@@ -15,7 +15,7 @@ export const useGetCategory = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const data = await getAllCategory(0, 1000000000000);
+        const data = await getAllCategory(0, 1000000000000000);
         setCategories(data.content);
       } catch (error: any) {
         console.error("Erro ao carregar categorias:", error.message);
