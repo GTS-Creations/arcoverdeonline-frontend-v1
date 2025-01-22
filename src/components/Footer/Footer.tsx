@@ -1,8 +1,6 @@
 "use client";
 
 import Link from "next/link";
-
-import { useEffect, useState } from "react";
 import useAuthStatus from "@/hooks/useAuthStatus";
 
 import Image from "next/image";

@@ -5,7 +5,6 @@ import { Button, HStack } from "@chakra-ui/react";
 import { Avatar } from "@/components/ui/avatar";
 import { IoMdMenu } from "react-icons/io";
 
-import { useEffect, useState } from "react";
 import useAuthStatus from "@/hooks/useAuthStatus";
 import { logout } from "@/services/auth";
 
