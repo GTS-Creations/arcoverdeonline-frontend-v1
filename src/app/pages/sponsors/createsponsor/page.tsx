@@ -27,15 +27,14 @@ export default function CreateSponsor() {
     try {
       const formData = new FormData();
       formData.append("name", name);
-      if (logo) formData.append("logo", logo); // Adiciona o arquivo da logo
+      if (logo) formData.append("logo", logo);
       formData.append("contact", contact);
       formData.append("url", url);
 
-      await createSponsor(formData); // Envia o FormData
+      await createSponsor(formData);
 
       setSuccess(true);
 
-      // Limpeza do formulário
       setName("");
       setLogo(null);
       setContact("");
