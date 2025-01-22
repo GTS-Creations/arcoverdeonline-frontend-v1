@@ -8,7 +8,7 @@ import { Alert } from "@/components/ui/alert";
 import { createPost } from "@/services/post";
 
 // HOOKS
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useGetSubCategory } from "@/hooks/useGetSubCategory";
 import useAuthStatus from "@/hooks/useAuthStatus";
 

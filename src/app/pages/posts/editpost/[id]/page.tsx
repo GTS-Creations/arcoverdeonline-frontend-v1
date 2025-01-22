@@ -13,7 +13,7 @@ import DialogFormEdit from "@/components/DialogForm/DialogFormEdit";
 export default function EditPost() {
   const { id } = useParams();
   const [title, setTitle] = useState("");
-  const [pdf, setPdf] = useState<File | null>(null); // Alterado para aceitar `null`
+  const [pdf, setPdf] = useState<File | null>(null);
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -32,7 +32,7 @@ export default function EditPost() {
         setTitle(data.title || "");
         setSubCategoryId(data.subCategoryId || "");
         if (data.pdf) {
-          setPdf(null); // Consistência inicial
+          setPdf(null);
         }
       } catch (err) {
         setError("Erro ao buscar a publicação. Tente novamente mais tarde.");
@@ -55,28 +55,32 @@ export default function EditPost() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <p className="text-green-700 text-xl font-semibold">Carregando...</p>
+      <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
+        <div className="flex justify-center items-center h-screen">
+          <p className="text-green-700 text-xl font-semibold">Carregando...</p>
+        </div>
       </div>
     );
   }
 
   if (!post) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <p className="text-red-700 text-xl font-semibold">
-          Publicação não encontrada.
-        </p>
+      <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
+        <div className="flex justify-center items-center h-screen">
+          <p className="text-red-700 text-xl font-semibold">
+            Publicação não encontrada.
+          </p>
+        </div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <p className="text-red-700 text-xl font-semibold">
-          {error}
-        </p>
+      <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
+        <div className="flex justify-center items-center h-screen">
+          <p className="text-red-700 text-xl font-semibold">{error}</p>
+        </div>
       </div>
     );
   }

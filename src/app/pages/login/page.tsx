@@ -6,7 +6,7 @@ import { Field } from "@/components/ui/field";
 import { Alert } from "@/components/ui/alert";
 
 //SERVICES
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { AuthContext } from "@/contexts/AuthContext";
 
 // HOOKS
