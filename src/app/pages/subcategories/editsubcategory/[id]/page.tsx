@@ -62,28 +62,32 @@ export default function EditSubCategory() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <p className="text-green-700 text-xl font-semibold">Carregando...</p>
+      <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
+        <div className="flex justify-center items-center h-screen">
+          <p className="text-green-700 text-xl font-semibold">Carregando...</p>
+        </div>
       </div>
     );
   }
 
   if (!subCategory) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <p className="text-red-700 text-xl font-semibold">
-          Sub-categoria não encontrada.
-        </p>
+      <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
+        <div className="flex justify-center items-center h-screen">
+          <p className="text-red-700 text-xl font-semibold">
+            Sub-categoria não encontrada.
+          </p>
+        </div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <p className="text-red-700 text-xl font-semibold">
-          {error}
-        </p>
+      <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
+        <div className="flex justify-center items-center h-screen">
+          <p className="text-red-700 text-xl font-semibold">{error}</p>
+        </div>
       </div>
     );
   }

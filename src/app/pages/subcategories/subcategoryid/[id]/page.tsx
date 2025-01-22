@@ -61,8 +61,10 @@ export default function SubCategoryDetails() {
   // Exibe carregamento
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <p className="text-green-700 text-xl font-semibold">Carregando...</p>
+      <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
+        <div className="flex justify-center items-center h-screen">
+          <p className="text-green-700 text-xl font-semibold">Carregando...</p>
+        </div>
       </div>
     );
   }
@@ -70,8 +72,10 @@ export default function SubCategoryDetails() {
   // Exibe erro
   if (error) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <p className="text-red-600 text-xl font-semibold">{error}</p>
+      <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
+        <div className="flex justify-center items-center h-screen">
+          <p className="text-red-600 text-xl font-semibold">{error}</p>
+        </div>
       </div>
     );
   }
@@ -79,10 +83,12 @@ export default function SubCategoryDetails() {
   // Exibe mensagem caso a subcategoria não seja encontrada
   if (!subCategory) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <p className="text-red-600 text-xl font-semibold">
-          Sub-categoria não encontrada.
-        </p>
+      <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
+        <div className="flex justify-center items-center h-screen">
+          <p className="text-red-600 text-xl font-semibold">
+            Sub-categoria não encontrada.
+          </p>
+        </div>
       </div>
     );
   }
