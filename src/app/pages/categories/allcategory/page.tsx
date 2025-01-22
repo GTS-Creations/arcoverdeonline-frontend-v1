@@ -59,18 +59,22 @@ const AllCategory = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <p className="text-green-700 text-xl font-semibold">Carregando...</p>
+      <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
+        <div className="flex justify-center items-center h-screen">
+          <p className="text-green-700 text-xl font-semibold">Carregando...</p>
+        </div>
       </div>
     );
   }
 
   if (!categories) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <p className="text-red-700 text-xl font-semibold">
-          Nenhuma categoria encontrada.
-        </p>
+      <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
+        <div className="flex justify-center items-center h-screen">
+          <p className="text-red-700 text-xl font-semibold">
+            Nenhuma categoria encontrada.
+          </p>
+        </div>
       </div>
     );
   }

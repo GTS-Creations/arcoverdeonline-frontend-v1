@@ -58,26 +58,32 @@ export default function CategoryDetails() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <p className="text-green-700 text-xl font-semibold">Carregando...</p>
+      <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
+        <div className="flex justify-center items-center h-screen">
+          <p className="text-green-700 text-xl font-semibold">Carregando...</p>
+        </div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <p className="text-red-600 text-xl font-semibold">{error}</p>
+      <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
+        <div className="flex justify-center items-center h-screen">
+          <p className="text-red-600 text-xl font-semibold">{error}</p>
+        </div>
       </div>
     );
   }
 
   if (!category) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <p className="text-red-600 text-xl font-semibold">
-          Categoria não encontrada.
-        </p>
+      <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
+        <div className="flex justify-center items-center h-screen">
+          <p className="text-red-600 text-xl font-semibold">
+            Categoria não encontrada.
+          </p>
+        </div>
       </div>
     );
   }
