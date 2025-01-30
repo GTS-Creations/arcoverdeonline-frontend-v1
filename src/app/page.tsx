@@ -9,8 +9,8 @@ import "swiper/css/autoplay";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 
 // COMPONENTE CHAKRA
-import { Button } from "@chakra-ui/react";
 import { FaPhone } from "react-icons/fa6";
+import { ProgressCircleRing, ProgressCircleRoot } from "@/components/ui/progress-circle";
 
 // HOOKS
 import Link from "next/link";
@@ -49,8 +49,13 @@ export default function Home() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <p className="text-green-700 text-xl font-semibold">Carregando...</p>
+      <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
+        <div className="flex justify-center flex-col items-center h-screen">
+          <ProgressCircleRoot value={null} size="md" colorPalette="green" marginBottom="5">
+            <ProgressCircleRing cap="round" />
+          </ProgressCircleRoot>
+          <p className="text-green-700 text-xl font-semibold">Carregando...</p>
+        </div>
       </div>
     );
   }
@@ -58,7 +63,7 @@ export default function Home() {
   return (
     <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
       <div className="min-h-screen px-4 bg-white pb-16">
-        <h2 className="text-center pt-4 text-2xl font-bold text-green-700 mb-8">
+        <h2 className="text-center pt-4 text-2xl font-bold uppercase underline underline-offset-8 text-green-700 mb-8">
           Patrocinadores
         </h2>
         <div className="carousel-container pb-16 lg:px-20 xl:w-7/12">
@@ -97,19 +102,17 @@ export default function Home() {
         </div>
 
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-center text-2xl font-bold text-green-700 mb-8">
+          <h2 className="text-center text-2xl underline underline-offset-8 uppercase font-bold text-green-700 mb-10">
             Categorias
           </h2>
           <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-center">
             {categories.length > 0 &&
               [...categories].reverse().map((categ) => (
-                <li key={categ.id}>
+                <div key={categ.id} className="hover:scale-105 transition border px-6 py-4 rounded-md shadow-md shadow-gray-400">
                   <Link href={`/pages/categories/categoryid/${categ.id}`}>
-                    <Button className="w-full md:w-10/12 bg-green-700 text-white font-semibold rounded-lg shadow-lg hover:bg-green-600 transition">
-                      {categ.name}
-                    </Button>
+                      <span className="uppercase text-green-900 font-semibold">{categ.name}</span>
                   </Link>
-                </li>
+                </div>
               ))}
           </ul>
         </div>
