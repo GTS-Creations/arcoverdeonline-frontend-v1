@@ -21,6 +21,7 @@ export default function Navbar() {
     if (searchTerm.trim() !== "") {
       router.push(`/search?searchTerm=${encodeURIComponent(searchTerm)}`);
     }
+    setSearchTerm("");
   };
 
   return (
