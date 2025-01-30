@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { search } from "@/services/home";
@@ -18,7 +19,7 @@ interface Post {
   title: string;
 }
 
-export default function SearchPage() {
+function SearchContent() {
   const searchParams = useSearchParams();
   const searchTerm = searchParams.get("searchTerm") || "";
   const [loading, setLoading] = useState(true);
@@ -32,7 +33,7 @@ export default function SearchPage() {
       const fetchResults = async () => {
         try {
           const data = await search({ query: searchTerm });
-          setResults(data); // Agora só contém os posts
+          setResults(data);
         } catch (error) {
           setError("Erro ao carregar os dados. Tente novamente mais tarde.");
           console.error("Erro ao buscar:", error);
@@ -142,5 +143,13 @@ export default function SearchPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<div>Loading Search Results...</div>}>
+      <SearchContent />
+    </Suspense>
   );
 }
