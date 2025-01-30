@@ -124,7 +124,7 @@ export default function SubCategoryDetails() {
               {subCategory.posts.map((post) => (
                 <li key={post.id}>
                   <Button
-                    className="w-full hover:scale-105 transition border px-6 py-4 rounded-md shadow-sm shadow-gray-400 text-center cursor-pointer"
+                    className="w-full hover:scale-105 bg-green-700 transition px-6 py-4 rounded-md shadow-sm shadow-gray-400 text-center cursor-pointer"
                     onClick={() => {
                       if (post.pdf) {
                         window.open(post.pdf, "_blank"); // Abre o PDF em uma nova guia
@@ -133,7 +133,7 @@ export default function SubCategoryDetails() {
                       }
                     }}
                   >
-                    <span className="uppercase text-green-900 font-semibold">
+                    <span className="uppercase text-white font-semibold">
                       {post.title}
                     </span>
                   </Button>
@@ -150,7 +150,7 @@ export default function SubCategoryDetails() {
               backgroundColor="green.700"
               padding="1rem"
               width="full"
-              className="mt-6 hover:bg-white hover:text-green-700 border hover:border-green-700"
+              className="mt-6 hover:bg-green-600"
               color="white"
             >
               Voltar

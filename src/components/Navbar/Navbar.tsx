@@ -50,7 +50,7 @@ export default function Navbar() {
             />
             <button
               onClick={handleSearch}
-              className="bg-green-700 text-white font-semibold rounded-full hover:bg-green-700 transition-colors"
+              className="bg-green-700 hover:scale-105 text-white font-semibold rounded-full hover:bg-green-700 transition"
             >
               <IoSearchCircleOutline size="40"/>
             </button>

@@ -114,23 +114,24 @@ function SearchContent() {
 
             return (
               <li
-                className="w-full flex flex-col hover:scale-95 transition border px-6 py-8 rounded-md shadow-sm shadow-gray-400 text-center cursor-pointer"
+                className="w-full flex flex-col hover:scale-95 transition bg-green-700 py-8 rounded-md shadow-sm shadow-gray-400 text-center cursor-pointer"
                 key={item.postId}
               >
                 {postPdf && (
                   <Button
                     onClick={() => window.open(postPdf, "_blank")}
                     className="flex flex-col"
+                    width="full"
                   >
-                    <span className="text-xl uppercase underline underline-offset-2 text-green-700 font-semibold">
+                    <span className="text-xl uppercase underline underline-offset-2 text-white font-semibold">
                       {item.postTitle}
                     </span>
                     <div>
-                      <p className="text-md text-gray-700">
+                      <p className="text-md text-gray-100">
                         <span className="font-semibold">Categoria: </span>
                         {item.categoryName}
                       </p>
-                      <p className="text-md text-gray-700">
+                      <p className="text-md text-gray-100">
                         <span className="font-semibold">Sub-categoria: </span>
                         {item.subCategoryName}
                       </p>

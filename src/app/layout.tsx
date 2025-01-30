@@ -1,6 +1,7 @@
 import "./globals.css";
-
 import type { Metadata } from "next";
+import Script from "next/script"; // Importação do Script do Next.js
+
 import { Provider } from "@/components/ui/provider";
 import { AuthProvider } from "@/contexts/AuthContext";
 
@@ -21,6 +22,13 @@ export default function RootLayout({
   return (
     <html lang="pt-br" suppressHydrationWarning={true}>
       <body className={`antialiased flex flex-col`}>
+        {/* Script de acessibilidade */}
+        <Script 
+          src="https://website-widgets.pages.dev/dist/sienna.min.js" 
+          strategy="beforeInteractive" 
+          defer
+        />
+
         <AuthProvider>
           <Provider>
             <aside>

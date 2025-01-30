@@ -120,8 +120,8 @@ export default function Home() {
                   href={`/pages/categories/categoryid/${categ.id}`}
                   key={categ.id}
                 >
-                  <div className="hover:scale-105 transition border px-6 py-4 rounded-md shadow-md shadow-gray-400 cursor-pointer">
-                    <span className="uppercase text-green-900 font-semibold">
+                  <div className="hover:scale-105 bg-green-700 transition px-6 py-4 rounded-md shadow-md shadow-gray-400 cursor-pointer">
+                    <span className="uppercase text-white font-semibold">
                       {categ.name}
                     </span>
                   </div>

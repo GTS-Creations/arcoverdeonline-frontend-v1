@@ -118,8 +118,8 @@ export default function CategoryDetails() {
                   href={`/pages/subcategories/subcategoryid/${subCategory.id}`}
                   key={subCategory.id}
                 >
-                  <div className="hover:scale-105 transition border px-6 py-4 rounded-md shadow-sm shadow-gray-400 text-center cursor-pointer">
-                    <span className="uppercase text-green-900 font-semibold">
+                  <div className="hover:scale-105 transition bg-green-700 px-6 py-4 rounded-md shadow-sm shadow-gray-400 text-center cursor-pointer">
+                    <span className="uppercase text-white font-semibold">
                       {subCategory.name}
                     </span>
                   </div>
@@ -135,7 +135,7 @@ export default function CategoryDetails() {
               backgroundColor="green.700"
               padding="1rem"
               width="full"
-              className="mt-6 hover:bg-white hover:text-green-700 border hover:border-green-700"
+              className="mt-6 hover:bg-green-600"
               color="white"
             >
               Voltar
