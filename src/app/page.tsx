@@ -10,7 +10,10 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules";
 
 // COMPONENTE CHAKRA
 import { FaPhone } from "react-icons/fa6";
-import { ProgressCircleRing, ProgressCircleRoot } from "@/components/ui/progress-circle";
+import {
+  ProgressCircleRing,
+  ProgressCircleRoot,
+} from "@/components/ui/progress-circle";
 
 // HOOKS
 import Link from "next/link";
@@ -51,7 +54,12 @@ export default function Home() {
     return (
       <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
         <div className="flex justify-center flex-col items-center h-screen">
-          <ProgressCircleRoot value={null} size="md" colorPalette="green" marginBottom="5">
+          <ProgressCircleRoot
+            value={null}
+            size="md"
+            colorPalette="green"
+            marginBottom="5"
+          >
             <ProgressCircleRing cap="round" />
           </ProgressCircleRoot>
           <p className="text-green-700 text-xl font-semibold">Carregando...</p>
@@ -108,11 +116,16 @@ export default function Home() {
           <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-center">
             {categories.length > 0 &&
               [...categories].reverse().map((categ) => (
-                <div key={categ.id} className="hover:scale-105 transition border px-6 py-4 rounded-md shadow-md shadow-gray-400">
-                  <Link href={`/pages/categories/categoryid/${categ.id}`}>
-                      <span className="uppercase text-green-900 font-semibold">{categ.name}</span>
-                  </Link>
-                </div>
+                <Link
+                  href={`/pages/categories/categoryid/${categ.id}`}
+                  key={categ.id}
+                >
+                  <div className="hover:scale-105 transition border px-6 py-4 rounded-md shadow-md shadow-gray-400 cursor-pointer">
+                    <span className="uppercase text-green-900 font-semibold">
+                      {categ.name}
+                    </span>
+                  </div>
+                </Link>
               ))}
           </ul>
         </div>

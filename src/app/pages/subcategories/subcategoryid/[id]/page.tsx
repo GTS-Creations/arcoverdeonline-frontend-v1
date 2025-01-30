@@ -11,6 +11,10 @@ import useAuthStatus from "@/hooks/useAuthStatus";
 
 // SERVICES
 import { getSubCategoryId } from "@/services/subCategory";
+import {
+  ProgressCircleRing,
+  ProgressCircleRoot,
+} from "@/components/ui/progress-circle";
 
 interface Post {
   id: string;
@@ -62,7 +66,15 @@ export default function SubCategoryDetails() {
   if (loading) {
     return (
       <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
-        <div className="flex justify-center items-center h-screen">
+        <div className="flex justify-center flex-col items-center h-screen">
+          <ProgressCircleRoot
+            value={null}
+            size="md"
+            colorPalette="green"
+            marginBottom="5"
+          >
+            <ProgressCircleRing cap="round" />
+          </ProgressCircleRoot>
           <p className="text-green-700 text-xl font-semibold">Carregando...</p>
         </div>
       </div>
@@ -99,12 +111,12 @@ export default function SubCategoryDetails() {
       <div className="px-4 bg-white pt-10 h-screen">
         <div className="max-w-5xl mx-auto">
           {/* Título da subcategoria */}
-          <h1 className="text-4xl font-bold text-center text-green-700 pb-6">
+          <h1 className="text-4xl font-bold uppercase underline underline-offset-4 text-center text-green-700 pb-6">
             {subCategory.name}
           </h1>
 
           {/* Lista de publicações */}
-          <h2 className="py-4 text-2xl font-semibold text-green-700">
+          <h2 className="py-4 text-2xl font-semibold uppercase text-green-700">
             Publicações:
           </h2>
           {subCategory.posts.length > 0 ? (
@@ -112,10 +124,7 @@ export default function SubCategoryDetails() {
               {subCategory.posts.map((post) => (
                 <li key={post.id}>
                   <Button
-                    borderBottom="1px solid green"
-                    padding="1rem"
-                    width="full"
-                    className="w-full bg-white text-green-700 font-semibold rounded-none shadow-lg hover:bg-green-700 hover:text-white transition hover:rounded-md"
+                    className="w-full hover:scale-105 transition border px-6 py-4 rounded-md shadow-sm shadow-gray-400 text-center cursor-pointer"
                     onClick={() => {
                       if (post.pdf) {
                         window.open(post.pdf, "_blank"); // Abre o PDF em uma nova guia
@@ -124,7 +133,9 @@ export default function SubCategoryDetails() {
                       }
                     }}
                   >
-                    {post.title}
+                    <span className="uppercase text-green-900 font-semibold">
+                      {post.title}
+                    </span>
                   </Button>
                 </li>
               ))}
@@ -134,12 +145,12 @@ export default function SubCategoryDetails() {
           )}
 
           {/* Botão de voltar */}
-          <Link href={`/`}>
+          <Link href={`/`} className="text-center">
             <Button
               backgroundColor="green.700"
               padding="1rem"
-              width="4/12"
-              className="mt-6 hover:bg-green-500 transition-colors"
+              width="full"
+              className="mt-6 hover:bg-white hover:text-green-700 border hover:border-green-700"
               color="white"
             >
               Voltar
