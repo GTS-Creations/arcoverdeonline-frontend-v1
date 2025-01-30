@@ -4,19 +4,22 @@ import Link from "next/link";
 import Image from "next/image";
 import logo from "../../assets/images/ArcoverdeOnline.png";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import useAuthStatus from "@/hooks/useAuthStatus";
 
 export default function Navbar() {
   const [searchTerm, setSearchTerm] = useState("");
   const isAuthenticated = useAuthStatus();
+  const router = useRouter();
 
   const handleInputChange = (event: any) => {
     setSearchTerm(event.target.value);
   };
 
   const handleSearch = () => {
-    console.log("Buscando por:", searchTerm);
-    // Lógica para filtrar dados ou chamar uma API.
+    if (searchTerm.trim() !== "") {
+      router.push(`/search?searchTerm=${encodeURIComponent(searchTerm)}`);
+    }
   };
 
   return (
