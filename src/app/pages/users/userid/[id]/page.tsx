@@ -5,6 +5,10 @@ import { getUserId } from "@/services/user";
 import Link from "next/link";
 import { Button } from "@chakra-ui/react";
 import useAuthStatus from "@/hooks/useAuthStatus";
+import {
+  ProgressCircleRing,
+  ProgressCircleRoot,
+} from "@/components/ui/progress-circle";
 
 interface User {
   name: string;
@@ -31,21 +35,29 @@ const UserId = () => {
   }, []);
 
   return (
-    <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
-      <div className="min-h-screen px-4 flex justify-center bg-white pb-16">
-        <div className="bg-white p-8 max-w-md w-full">
+    <main className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
+      <section className="min-h-screen px-4 flex justify-center bg-white pb-16">
+        <article className="bg-white p-8 max-w-md w-full">
           {error ? (
-            <div className="text-red-600 text-center font-semibold">
-              {error}
-            </div>
+            <p className="text-red-600 text-center font-semibold">{error}</p>
           ) : !user ? (
-            <div className="flex justify-center items-center h-screen">
-              <p className="text-green-700 text-xl font-semibold">
-                Carregando...
-              </p>
+            <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
+              <div className="flex justify-center flex-col items-center h-screen">
+                <ProgressCircleRoot
+                  value={null}
+                  size="md"
+                  colorPalette="green"
+                  marginBottom="5"
+                >
+                  <ProgressCircleRing cap="round" />
+                </ProgressCircleRoot>
+                <p className="text-green-700 text-xl font-semibold">
+                  Carregando...
+                </p>
+              </div>
             </div>
           ) : (
-            <div className="text-center">
+            <section className="text-center">
               <h1 className="text-2xl font-bold text-gray-800 mb-4">
                 Nome: {user.name}
               </h1>
@@ -64,11 +76,11 @@ const UserId = () => {
                   Editar Usuário
                 </Button>
               </Link>
-            </div>
+            </section>
           )}
-        </div>
-      </div>
-    </div>
+        </article>
+      </section>
+    </main>
   );
 };
 

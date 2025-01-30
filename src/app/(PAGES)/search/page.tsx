@@ -100,7 +100,7 @@ function SearchContent() {
   }
 
   return (
-    <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
+    <section className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
       <div className="h-screen px-4 pt-10 bg-white">
         <div className="max-w-5xl mx-auto">
           <h1 className="text-4xl font-bold text-center text-green-700 pb-6">
@@ -143,7 +143,7 @@ function SearchContent() {
           })}
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

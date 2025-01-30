@@ -42,7 +42,7 @@ export default function Login() {
 
   return (
     <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
-      <div className="flex items-center justify-center flex-col bg-white py-44">
+      <section className="flex items-center justify-center flex-col bg-white py-44">
         <form
           onSubmit={handleSubmit}
           className="w-full max-w-md p-6 bg-white shadow-lg rounded-lg"
@@ -111,7 +111,7 @@ export default function Login() {
             )}
           </Stack>
         </form>
-      </div>
+      </section>
     </div>
   );
 }

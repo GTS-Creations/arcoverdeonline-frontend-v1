@@ -101,7 +101,7 @@ const AllPost = () => {
 
   return (
     <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
-      <div className="pt-10 sm:px-5 h-screen bg-white">
+      <section className="pt-10 sm:px-5 h-screen bg-white">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-center text-2xl font-bold text-green-700 pb-5">
             Publicações
@@ -201,7 +201,7 @@ const AllPost = () => {
             </Stack>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 };

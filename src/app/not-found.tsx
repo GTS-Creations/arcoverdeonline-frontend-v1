@@ -8,7 +8,7 @@ const notfound = () => {
   const isAuthenticated = useAuthStatus();
   
   return (
-    <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
+    <section className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
       <div className="h-screen px-4 bg-white">
         <div className="text-center space-y-5">
           <h1 className="pt-10 text-3xl">Página não encontrada.</h1>
@@ -29,7 +29,7 @@ const notfound = () => {
           </Link>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

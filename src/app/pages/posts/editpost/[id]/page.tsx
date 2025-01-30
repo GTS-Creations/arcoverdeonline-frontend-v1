@@ -96,7 +96,7 @@ export default function EditPost() {
 
   return (
     <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
-      <div className="flex items-center flex-col pt-10 h-screen bg-white">
+      <section className="flex items-center flex-col pt-10 h-screen bg-white">
         <form className="w-full max-w-md p-6 bg-white shadow-lg rounded-lg">
           <FormPost
             handleChange={handleChange}
@@ -109,7 +109,7 @@ export default function EditPost() {
           />
           <DialogFormEdit handleEdit={handleEdit} />
         </form>
-      </div>
+      </section>
     </div>
   );
 }

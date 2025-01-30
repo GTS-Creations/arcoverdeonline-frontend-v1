@@ -90,7 +90,7 @@ const AllCategory = () => {
 
   return (
     <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
-      <div className="sm:px-5 h-screen pt-10 bg-white">
+      <section className="sm:px-5 h-screen pt-10 bg-white">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-center text-2xl font-bold text-green-700 pb-5">
             Categorias
@@ -174,7 +174,7 @@ const AllCategory = () => {
             </Stack>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 };

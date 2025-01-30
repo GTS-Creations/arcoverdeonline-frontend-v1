@@ -102,9 +102,16 @@ export default function EditUser() {
   }
 
   return (
-    <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
-      <div className="flex items-center pt-10 flex-col h-screen bg-white">
-        <form className="w-full max-w-md p-6 bg-white shadow-lg rounded-lg">
+    <main className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
+      <section className="flex items-center pt-10 flex-col h-screen bg-white">
+        <form
+          className="w-full max-w-md p-6 bg-white shadow-lg rounded-lg"
+          aria-labelledby="form-title"
+        >
+          <h2 id="form-title" className="sr-only">
+            Formulário de Usuário
+          </h2>
+
           <FormUser
             name={name}
             setName={setName}
@@ -116,7 +123,7 @@ export default function EditUser() {
 
           <DialogFormEdit handleEdit={handleEdit} />
         </form>
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }

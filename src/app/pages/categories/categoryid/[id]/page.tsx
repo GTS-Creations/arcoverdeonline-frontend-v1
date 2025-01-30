@@ -102,7 +102,7 @@ export default function CategoryDetails() {
 
   return (
     <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
-      <div className="h-screen px-4 pt-10 bg-white">
+      <section className="h-screen px-4 pt-10 bg-white">
         <div className="max-w-5xl mx-auto">
           <h1 className="text-4xl font-bold text-center uppercase underline underline-offset-4 text-green-700 pb-6">
             {category.name}
@@ -142,7 +142,7 @@ export default function CategoryDetails() {
             </Button>
           </Link>
         </div>
-      </div>
+      </section>
     </div>
   );
 }

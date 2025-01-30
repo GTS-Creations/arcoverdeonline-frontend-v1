@@ -47,7 +47,7 @@ export default function CreateSponsor() {
 
   return (
     <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
-      <div className="flex items-center flex-col bg-white h-screen pt-10">
+      <section className="flex items-center flex-col bg-white h-screen pt-10">
         <form
           onSubmit={handleSubmit}
           className="w-full max-w-md p-6 bg-white shadow-lg rounded-lg"
@@ -80,7 +80,7 @@ export default function CreateSponsor() {
             )}
           </Stack>
         </form>
-      </div>
+      </section>
     </div>
   );
 }

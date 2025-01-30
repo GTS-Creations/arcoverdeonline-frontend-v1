@@ -108,7 +108,7 @@ export default function SubCategoryDetails() {
   // Renderiza a página
   return (
     <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
-      <div className="px-4 bg-white pt-10 h-screen">
+      <section className="px-4 bg-white pt-10 h-screen">
         <div className="max-w-5xl mx-auto">
           {/* Título da subcategoria */}
           <h1 className="text-4xl font-bold uppercase underline underline-offset-4 text-center text-green-700 pb-6">
@@ -157,7 +157,7 @@ export default function SubCategoryDetails() {
             </Button>
           </Link>
         </div>
-      </div>
+      </section>
     </div>
   );
 }

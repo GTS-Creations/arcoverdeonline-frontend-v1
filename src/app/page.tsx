@@ -69,7 +69,7 @@ export default function Home() {
   }
 
   return (
-    <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
+    <section className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
       <div className="min-h-screen px-4 bg-white pb-16">
         <h2 className="text-center tracking-widest pt-4 text-2xl font-bold uppercase underline underline-offset-8 text-green-700 mb-8">
           Patrocinadores
@@ -130,6 +130,6 @@ export default function Home() {
           </ul>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
