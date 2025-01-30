@@ -71,7 +71,7 @@ export default function Home() {
   return (
     <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
       <div className="min-h-screen px-4 bg-white pb-16">
-        <h2 className="text-center pt-4 text-2xl font-bold uppercase underline underline-offset-8 text-green-700 mb-8">
+        <h2 className="text-center tracking-widest pt-4 text-2xl font-bold uppercase underline underline-offset-8 text-green-700 mb-8">
           Patrocinadores
         </h2>
         <div className="carousel-container pb-16 lg:px-20 xl:w-7/12">
@@ -110,7 +110,7 @@ export default function Home() {
         </div>
 
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-center text-2xl underline underline-offset-8 uppercase font-bold text-green-700 mb-10">
+          <h2 className="text-center text-2xl tracking-widest underline underline-offset-8 uppercase font-bold text-green-700 mb-10">
             Categorias
           </h2>
           <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-center">

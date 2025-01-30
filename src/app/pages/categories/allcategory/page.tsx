@@ -17,6 +17,7 @@ import { getAllCategory, deleteCategory } from "@/services/category";
 
 import DialogFormDelete from "@/components/DialogForm/DialogFormDelete";
 import ButtonPageAllCreate from "@/components/ButtonCreate/ButtonPageAllCreate";
+import { ProgressCircleRing, ProgressCircleRoot } from "@/components/ui/progress-circle";
 
 interface Category {
   id: string;
@@ -60,7 +61,15 @@ const AllCategory = () => {
   if (loading) {
     return (
       <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
-        <div className="flex justify-center items-center h-screen">
+        <div className="flex justify-center flex-col items-center h-screen">
+          <ProgressCircleRoot
+            value={null}
+            size="md"
+            colorPalette="green"
+            marginBottom="5"
+          >
+            <ProgressCircleRing cap="round" />
+          </ProgressCircleRoot>
           <p className="text-green-700 text-xl font-semibold">Carregando...</p>
         </div>
       </div>

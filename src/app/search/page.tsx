@@ -62,7 +62,12 @@ export default function SearchPage() {
     return (
       <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
         <div className="flex justify-center flex-col items-center h-screen">
-          <ProgressCircleRoot value={null} size="md" colorPalette="green" marginBottom="5">
+          <ProgressCircleRoot
+            value={null}
+            size="md"
+            colorPalette="green"
+            marginBottom="5"
+          >
             <ProgressCircleRing cap="round" />
           </ProgressCircleRoot>
           <p className="text-green-700 text-xl font-semibold">Carregando...</p>
@@ -107,23 +112,30 @@ export default function SearchPage() {
             const postPdf = matchedPost?.pdf || null;
 
             return (
-              <li key={item.postId} className="list-none border-b-2 border-gray-400 p-4 flex flex-col justify-center items-center">
+              <li
+                className="w-full flex flex-col hover:scale-95 transition border px-6 py-8 rounded-md shadow-sm shadow-gray-400 text-center cursor-pointer"
+                key={item.postId}
+              >
                 {postPdf && (
                   <Button
-                    padding="1rem"
-                    color="green.800"
-                    textDecoration="underline"
                     onClick={() => window.open(postPdf, "_blank")}
+                    className="flex flex-col"
                   >
-                    <span className="text-3xl mb-4">{item.postTitle}</span>
+                    <span className="text-xl uppercase underline underline-offset-2 text-green-700 font-semibold">
+                      {item.postTitle}
+                    </span>
+                    <div>
+                      <p className="text-md text-gray-700">
+                        <span className="font-semibold">Categoria: </span>
+                        {item.categoryName}
+                      </p>
+                      <p className="text-md text-gray-700">
+                        <span className="font-semibold">Sub-categoria: </span>
+                        {item.subCategoryName}
+                      </p>
+                    </div>
                   </Button>
                 )}
-                <p className="text-sm text-gray-600">
-                  Categoria: {item.categoryName}
-                </p>
-                <p className="text-sm text-gray-600">
-                  Sub-categoria: {item.subCategoryName}
-                </p>
               </li>
             );
           })}

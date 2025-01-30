@@ -6,6 +6,7 @@ import logo from "../../assets/images/ArcoverdeOnline.png";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import useAuthStatus from "@/hooks/useAuthStatus";
+import { IoSearchCircleOutline } from "react-icons/io5";
 
 export default function Navbar() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -24,7 +25,7 @@ export default function Navbar() {
 
   return (
     <div className={isAuthenticated ? "lg:ml-56 sm:ml0" : "ml-0"}>
-      <nav className="py-4 px-1 sm:px-5 w-full border-b border-green-700 shadow-md bg-green-50">
+      <nav className="py-4 px-1 sm:px-5 w-full border-b border-green-900 shadow-md bg-green-50">
         <div className="max-w-6xl mx-auto flex justify-between items-center">
           <div>
             <Link href="/">
@@ -44,13 +45,13 @@ export default function Navbar() {
               placeholder="Buscar..."
               value={searchTerm}
               onChange={handleInputChange}
-              className="px-4 py-2 w-40 bg-transparent text-green-800 rounded-lg border border-green-700 focus:ring focus:ring-green-500 focus:outline-none placeholder:text-green-600"
+              className="px-4 py-2 w-40 md:w-60 bg-transparent text-green-900 rounded-lg border-2 border-green-700 focus:ring focus:border focus:ring-green-700 focus:outline-none placeholder:text-green-700"
             />
             <button
               onClick={handleSearch}
-              className="px-4 py-2 bg-green-700 text-white font-semibold rounded-lg hover:bg-green-600 transition-colors"
+              className="bg-green-700 text-white font-semibold rounded-full hover:bg-green-700 transition-colors"
             >
-              Buscar
+              <IoSearchCircleOutline size="40"/>
             </button>
           </div>
         </div>

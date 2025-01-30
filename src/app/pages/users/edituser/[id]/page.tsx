@@ -11,6 +11,10 @@ import { getUserId, updateUser } from "@/services/user";
 // COMPONENTES
 import DialogFormEdit from "@/components/DialogForm/DialogFormEdit";
 import FormUser from "@/components/Form/FormUser";
+import {
+  ProgressCircleRing,
+  ProgressCircleRoot,
+} from "@/components/ui/progress-circle";
 
 export default function EditUser() {
   const { id } = useParams();
@@ -60,7 +64,15 @@ export default function EditUser() {
   if (loading) {
     return (
       <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
-        <div className="flex justify-center items-center h-screen">
+        <div className="flex justify-center flex-col items-center h-screen">
+          <ProgressCircleRoot
+            value={null}
+            size="md"
+            colorPalette="green"
+            marginBottom="5"
+          >
+            <ProgressCircleRing cap="round" />
+          </ProgressCircleRoot>
           <p className="text-green-700 text-xl font-semibold">Carregando...</p>
         </div>
       </div>
