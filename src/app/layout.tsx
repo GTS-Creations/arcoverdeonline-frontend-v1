@@ -1,6 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import Script from "next/script"; // Importação do Script do Next.js
+import Script from "next/script";
 
 import { Provider } from "@/components/ui/provider";
 import { AuthProvider } from "@/contexts/AuthContext";
@@ -38,7 +38,7 @@ export default function RootLayout({
               <Navbar />
             </header>
 
-            <main>{children}</main>
+            <>{children}</>
 
             <footer>
               <Footer />

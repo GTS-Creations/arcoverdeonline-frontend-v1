@@ -19,10 +19,10 @@ const FormSubCategory = ({
     let currentSubTitle =
       "Preencha os campos abaixo para criar ou editar a Sub-Categoria.";
 
-    if (pathname === "/pages/subcategories/createsubcategory") {
+    if (pathname === "/createsubcategory") {
       currentTitle = "Criar Sub-Categoria";
       currentSubTitle = "Preencha os campos abaixo para criar a Sub-Categoria.";
-    } else if (pathname.startsWith("/pages/subcategories/editsubcategory")) {
+    } else if (pathname.startsWith("/editsubcategory")) {
       currentTitle = "Editar Sub-Categoria";
       currentSubTitle =
         "Preencha os campos abaixo para editar a Sub-Categoria.";

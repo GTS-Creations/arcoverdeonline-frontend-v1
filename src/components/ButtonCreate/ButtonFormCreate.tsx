@@ -10,13 +10,13 @@ const ButtonFormCreate = () => {
   useEffect(() => {
     let currentTitle = "Criar";
 
-    if (pathname === "/pages/categories/editcategory")
+    if (pathname === "/editcategory")
       currentTitle = "Criar Categoria";
-    else if (pathname === "/pages/subcategories/editsubcategory")
+    else if (pathname === "/editsubcategory")
       currentTitle = "Criar Sub-Categoria";
-    else if (pathname === "/pages/posts/editpost")
+    else if (pathname === "/editpost")
       currentTitle = "Criar Publicação";
-    else if (pathname === "/pages/sponsors/editsponsor")
+    else if (pathname === "/editsponsor")
       currentTitle = "Criar Patrocinador";
 
     setName(currentTitle);
@@ -26,14 +26,14 @@ const ButtonFormCreate = () => {
     e.preventDefault();
     let location = "/";
 
-    if (pathname.startsWith("/pages/categories/createcategory"))
-      location = "/pages/categories/allcategory";
-    else if (pathname.startsWith("/pages/subcategories/createsubcategory"))
-      location = "/pages/subcategories/allsubcategory";
-    else if (pathname.startsWith("/pages/posts/createpost"))
-      location = "/pages/posts/allpost";
-    else if (pathname.startsWith("/pages/sponsors/createsponsor"))
-      location = "/pages/sponsors/allsponsor";
+    if (pathname.startsWith("/createcategory"))
+      location = "/allcategory";
+    else if (pathname.startsWith("/createsubcategory"))
+      location = "/allsubcategory";
+    else if (pathname.startsWith("/createpost"))
+      location = "/allpost";
+    else if (pathname.startsWith("/createsponsor"))
+      location = "/allsponsor";
 
     window.location.href = location;
   };

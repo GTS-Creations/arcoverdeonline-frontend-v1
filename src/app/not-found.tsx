@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { Button } from "@chakra-ui/react";
 import Link from "next/link";
@@ -6,11 +6,15 @@ import useAuthStatus from "@/hooks/useAuthStatus";
 
 const notfound = () => {
   const isAuthenticated = useAuthStatus();
-  
+
   return (
-    <section className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
+    <main className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
       <div className="h-screen px-4 bg-white">
-        <div className="text-center space-y-5">
+        <div
+          className="text-center space-y-5"
+          role="alert"
+          aria-live="assertive"
+        >
           <h1 className="pt-10 text-3xl">Página não encontrada.</h1>
           <p className="pb-10">A página que você procura não existe.</p>
 
@@ -29,7 +33,7 @@ const notfound = () => {
           </Link>
         </div>
       </div>
-    </section>
+    </main>
   );
 };
 

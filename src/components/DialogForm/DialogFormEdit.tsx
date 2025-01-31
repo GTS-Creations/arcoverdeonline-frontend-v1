@@ -19,13 +19,13 @@ const DialogFormEdit = ({ handleEdit }: any) => {
   useEffect(() => {
     let currentEdit = "";
 
-    if (pathname.startsWith("/pages/categories/editcategory"))
+    if (pathname.startsWith("/editcategory/"))
       currentEdit = "esta categoria";
-    else if (pathname.startsWith("/pages/subcategories/editsubcategory"))
+    else if (pathname.startsWith("/editsubcategory/"))
       currentEdit = "esta sub-categoria";
-    else if (pathname.startsWith("/pages/posts/editpost"))
+    else if (pathname.startsWith("/editpost/"))
       currentEdit = "esta publicação";
-    else if (pathname.startsWith("/pages/sponsors/editsponsor/"))
+    else if (pathname.startsWith("/editsponsor/"))
       currentEdit = "este patrocinador";
 
     setName(currentEdit);
@@ -35,14 +35,14 @@ const DialogFormEdit = ({ handleEdit }: any) => {
     e.preventDefault();
     let location = "/";
 
-    if (pathname.startsWith("/pages/categories/editcategory"))
-      location = "/pages/categories/allcategory";
-    else if (pathname.startsWith("/pages/subcategories/editsubcategory"))
-      location = "/pages/subcategories/allsubcategory";
-    else if (pathname.startsWith("/pages/posts/editpost"))
-      location = "/pages/posts/allpost";
-    else if (pathname.startsWith("/pages/sponsors/editsponsor/"))
-      location = "/pages/sponsors/allsponsor";
+    if (pathname.startsWith("/editcategory/"))
+      location = "/allcategory";
+    else if (pathname.startsWith("/editsubcategory/"))
+      location = "/allsubcategory";
+    else if (pathname.startsWith("/editpost/"))
+      location = "/allpost";
+    else if (pathname.startsWith("/editsponsor/"))
+      location = "/allsponsor";
 
     window.location.href = location;
   };

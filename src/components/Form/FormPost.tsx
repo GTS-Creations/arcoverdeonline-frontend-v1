@@ -31,10 +31,10 @@ const FormPost: React.FC<FormPostProps> = ({
     let currentSubTitle =
       "Preencha os campos abaixo para criar ou editar a Publicação.";
 
-    if (pathname === "/pages/posts/createpost") {
+    if (pathname === "/createpost") {
       currentTitle = "Criar Publicação";
       currentSubTitle = "Preencha os campos abaixo para criar a Publicação.";
-    } else if (pathname.startsWith("/pages/posts/editpost")) {
+    } else if (pathname.startsWith("/editpost")) {
       currentTitle = "Editar Publicação";
       currentSubTitle = "Preencha os campos abaixo para editar a Publicação.";
     }

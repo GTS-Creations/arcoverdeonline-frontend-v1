@@ -69,7 +69,7 @@ export default function Home() {
   }
 
   return (
-    <section className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
+    <main className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
       <div className="min-h-screen px-4 bg-white pb-16">
         <h2 className="text-center tracking-widest pt-4 text-2xl font-bold uppercase underline underline-offset-8 text-green-700 mb-8">
           Patrocinadores
@@ -88,7 +88,7 @@ export default function Home() {
           >
             {sponsors.map((sponsor) => (
               <SwiperSlide key={sponsor.id} className="bg-white">
-                <div className="carousel-item flex flex-col items-center text-center rounded-sm p-3">
+                <article className="carousel-item flex flex-col items-center text-center rounded-sm p-3">
                   <a href={sponsor.url} target="_blank" className="w-full">
                     <img
                       src={sponsor.logo}
@@ -103,7 +103,7 @@ export default function Home() {
                     <FaPhone />
                     {sponsor.contact}
                   </p>
-                </div>
+                </article>
               </SwiperSlide>
             ))}
           </Swiper>
@@ -116,20 +116,19 @@ export default function Home() {
           <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-center">
             {categories.length > 0 &&
               [...categories].reverse().map((categ) => (
-                <Link
-                  href={`/pages/categories/categoryid/${categ.id}`}
-                  key={categ.id}
-                >
-                  <div className="hover:scale-105 bg-green-700 transition px-6 py-4 rounded-md shadow-md shadow-gray-400 cursor-pointer">
-                    <span className="uppercase text-white font-semibold">
-                      {categ.name}
-                    </span>
-                  </div>
-                </Link>
+                <li key={categ.id}>
+                  <Link href={`/categories/${categ.id}`}>
+                    <div className="hover:scale-105 bg-green-700 transition px-6 py-4 rounded-md shadow-md shadow-gray-400 cursor-pointer">
+                      <span className="uppercase text-white font-semibold">
+                        {categ.name}
+                      </span>
+                    </div>
+                  </Link>
+                </li>
               ))}
           </ul>
         </div>
       </div>
-    </section>
+    </main>
   );
 }

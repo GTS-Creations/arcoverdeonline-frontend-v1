@@ -114,7 +114,7 @@ function SearchContent() {
 
             return (
               <li
-                className="w-full flex flex-col hover:scale-95 transition bg-green-700 py-8 rounded-md shadow-sm shadow-gray-400 text-center cursor-pointer"
+                className="w-full mb-4 flex flex-col hover:scale-95 transition bg-green-700 py-8 rounded-md shadow-sm shadow-gray-400 text-center cursor-pointer"
                 key={item.postId}
               >
                 {postPdf && (

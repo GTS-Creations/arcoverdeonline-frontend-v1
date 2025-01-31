@@ -13,10 +13,10 @@ const FormCategory = ({ name, setName }: any) => {
     let currentSubTitle =
       "Preencha os campos abaixo para criar ou editar a Categoria.";
 
-    if (pathname === "/pages/categories/createcategory") {
+    if (pathname === "/createcategory") {
       currentTitle = "Criar Categoria";
       currentSubTitle = "Preencha os campos abaixo para criar a Categoria.";
-    } else if (pathname.startsWith("/pages/categories/editcategory")) {
+    } else if (pathname.startsWith("/editcategory")) {
       currentTitle = "Editar Categoria";
       currentSubTitle = "Preencha os campos abaixo para editar a Categoria.";
     }

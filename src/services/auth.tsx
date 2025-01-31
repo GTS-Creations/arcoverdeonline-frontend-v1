@@ -33,5 +33,5 @@ export const logout = () => {
     path: '/',
   });
 
-  window.location.href = '/pages/login';
+  window.location.href = '/login';
 };
