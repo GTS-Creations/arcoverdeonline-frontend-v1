@@ -55,10 +55,15 @@ export default function EditSponsor() {
     const formatosPermitidos = ["image/png", "image/jpeg"];
 
     if (logo && !formatosPermitidos.includes(logo.type)) {
-      setError(true);
       alert("O arquivo deve ser uma imagem PNG ou JPG");
       return;
     }
+
+    if (!name || !logo ||!contact || !url) {
+      alert("Preencha todos os campos.");
+      return;
+    }
+
     const formData = new FormData();
     formData.append("name", name);
     formData.append("logo", logo);

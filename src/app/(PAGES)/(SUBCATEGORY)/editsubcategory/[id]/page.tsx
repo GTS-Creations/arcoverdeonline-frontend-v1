@@ -49,12 +49,13 @@ export default function EditSubCategory() {
   }, [id]);
 
   const handleEdit = async (e: any) => {
-    if (!categoryId) {
-      return alert("Selecione uma categoria!");
-    }
-
     e.preventDefault();
 
+    if (!name || !categoryId) {
+      alert("Preencha todos os campos.");
+      return;
+    }
+    
     try {
       await updateSubCategory(id, { name, categoryId });
       router.push("/allsubcategory");

@@ -131,7 +131,7 @@ export default function SubCategoryDetails() {
                       className="w-full hover:scale-105 bg-green-700 transition px-6 py-4 rounded-md shadow-sm shadow-gray-400 text-center cursor-pointer"
                       onClick={() => {
                         if (post.pdf) {
-                          window.open(post.pdf, "_blank"); // Abre o PDF em uma nova aba
+                          window.open(post.pdf, "_blank", "noopener noreferrer"); // Abre o PDF em uma nova aba
                         } else {
                           alert("PDF não disponível."); // Exibe alerta caso o PDF não esteja disponível
                         }

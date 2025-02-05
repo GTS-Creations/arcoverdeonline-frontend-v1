@@ -45,6 +45,12 @@ export default function EditCategory() {
 
   const handleEdit = async (e: any) => {
     e.preventDefault();
+
+    if (!name) {
+      alert("Preencha todos os campos.");
+      return;
+    }
+
     try {
       await updateCategory(id, { name });
       router.push("/allcategory");

@@ -88,22 +88,31 @@ export default function Home() {
           >
             {sponsors.map((sponsor) => (
               <SwiperSlide key={sponsor.id} className="bg-white">
-                <article className="carousel-item flex flex-col items-center text-center rounded-sm p-3">
-                  <a href={sponsor.url} target="_blank" className="w-full">
+                <a
+                  href={
+                    sponsor.url.startsWith("http")
+                      ? sponsor.url
+                      : `https://${sponsor.url}`
+                  }
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full"
+                >
+                  <article className="carousel-item flex flex-col items-center text-center rounded-sm p-3">
                     <img
                       src={sponsor.logo}
                       alt={sponsor.name}
                       className="w-full h-80 rounded-sm pb-5"
                     />
-                  </a>
-                  <h3 className="text-green-700 text-lg pb-2 font-semibold">
-                    {sponsor.name}
-                  </h3>
-                  <p className="text-gray-600 break-all flex items-center gap-2">
-                    <FaPhone />
-                    {sponsor.contact}
-                  </p>
-                </article>
+                    <h3 className="text-green-700 text-lg pb-2 font-semibold">
+                      {sponsor.name}
+                    </h3>
+                    <p className="text-gray-600 break-all flex items-center gap-2">
+                      <FaPhone />
+                      {sponsor.contact}
+                    </p>
+                  </article>
+                </a>
               </SwiperSlide>
             ))}
           </Swiper>
