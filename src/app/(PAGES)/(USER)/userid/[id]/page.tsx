@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useParams } from "next/navigation";
 import { getUserId } from "@/services/user";
 import Link from "next/link";
 import { Button } from "@chakra-ui/react";
@@ -16,6 +17,7 @@ interface User {
 }
 
 const UserId = () => {
+  const { id } = useParams();
   const [user, setUser] = useState<User | null>(null);
   const [error, setError] = useState<string | null>(null);
   const isAuthenticated = useAuthStatus();
@@ -23,7 +25,7 @@ const UserId = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await getUserId();
+        const res = await getUserId(id);
         setUser(res);
       } catch (err) {
         console.error(err);

@@ -32,7 +32,7 @@ export default function EditUser() {
 
     const fetchUserData = async () => {
       try {
-        const data = await getUserId();
+        const data = await getUserId(id);
         setUser(data);
         setName(data.name);
         setEmail(data.email);
@@ -55,7 +55,7 @@ export default function EditUser() {
     }
 
     try {
-      await updateUser({ name, email, password });
+      await updateUser(id, { name, email, password });
       router.push(`/userid/${id}`);
     } catch (error: any) {
       setError("Erro ao atualizar o usuário, tente novamente mais tarde.");

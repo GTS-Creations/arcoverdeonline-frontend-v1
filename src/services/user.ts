@@ -2,11 +2,11 @@ import { apiRequest } from "@/utils/api";
 import Cookies from "js-cookie";
 
 // Rota que mostra o usuario selecionada pelo ID
-export async function getUserId() {
+export async function getUserId(id: any) {
   const token = Cookies.get("nextauth.token");
 
   try {
-    const res = await apiRequest(`/user/1`, {
+    const res = await apiRequest(`/user/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -27,7 +27,7 @@ export async function getUserId() {
 }
 
 // Rota que faz atualização/edição do usuário selecionada pelo ID
-export async function updateUser({
+export async function updateUser(id:any, {
   name,
   email,
   password,
@@ -39,7 +39,7 @@ export async function updateUser({
   const token = Cookies.get("nextauth.token");
 
   try {
-    const res = await apiRequest(`/user/1`, {
+    const res = await apiRequest(`/user/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
