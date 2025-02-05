@@ -18,7 +18,10 @@ import { getAllSubCategory } from "@/services/subCategory";
 
 import DialogFormDelete from "@/components/DialogForm/DialogFormDelete";
 import ButtonPageAllCreate from "@/components/ButtonCreate/ButtonPageAllCreate";
-import { ProgressCircleRing, ProgressCircleRoot } from "@/components/ui/progress-circle";
+import {
+  ProgressCircleRing,
+  ProgressCircleRoot,
+} from "@/components/ui/progress-circle";
 
 interface Post {
   id: string;
@@ -101,7 +104,7 @@ const AllPost = () => {
 
   return (
     <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
-      <section className="pt-10 sm:px-5 h-screen bg-white">
+      <main className="pt-10 sm:px-5 h-screen bg-white">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-center text-2xl font-bold text-green-700 pb-5">
             Publicações
@@ -132,55 +135,63 @@ const AllPost = () => {
                 </Table.Header>
 
                 <Table.Body>
-                  {posts.map((post) => (
-                    <Table.Row
-                      key={post.id}
-                      backgroundColor="transparent"
-                      borderBottom="1px solid #ddd"
-                    >
-                      <Table.Cell color="green.700">{post.title}</Table.Cell>
+                  {posts.map((post) => {
+                    const subCategory = subCategories.find((subCat) =>
+                      subCat.posts.some((subCateg) => subCateg.id === post.id)
+                    );
 
-                      <Table.Cell color="green.700" className="break-all">
-                        {post.pdf}
-                      </Table.Cell>
-
-                      <Table.Cell
-                        color="green.700"
-                        className="pr-10 md:pr-80 lg:pr-96"
+                    return (
+                      <Table.Row
+                        key={post.id}
+                        backgroundColor="transparent"
+                        borderBottom="1px solid #ddd"
                       >
-                        {
-                          subCategories.find((subCat) =>
-                            subCat.posts.some(
-                              (subCateg) => subCateg.id === post.id
-                            )
-                          )?.name
-                        }
-                      </Table.Cell>
+                        <Table.Cell color="green.700">{post.title}</Table.Cell>
 
-                      <Table.Cell textAlign="end">
-                        <Link href={`/editpost/${post.id}`}>
-                          <Button
-                            variant="solid"
-                            size="sm"
-                            padding="1rem"
-                            backgroundColor="green.700"
-                            color="white"
+                        <Table.Cell color="green.700" className="break-all">
+                          <a
+                            href={post.pdf}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 underline"
                           >
-                            <span className="hidden sm:block">Editar</span>
-                            <BsPencil />
-                          </Button>
-                        </Link>
-                      </Table.Cell>
+                            Abrir PDF
+                          </a>
+                        </Table.Cell>
 
-                      <Table.Cell textAlign="end">
-                        <DialogFormDelete
-                          handleDelete={() => handleDelete(post.id)}
+                        <Table.Cell
+                          color="green.700"
+                          className="pr-10 md:pr-80 lg:pr-96"
                         >
-                          <span className="hidden sm:block">Apagar</span>
-                        </DialogFormDelete>
-                      </Table.Cell>
-                    </Table.Row>
-                  ))}
+                          {subCategory?.name || "Sem categoria"}
+                        </Table.Cell>
+
+                        <Table.Cell textAlign="end">
+                          <Link href={`/editpost/${post.id}`}>
+                            <Button
+                              variant="solid"
+                              size="sm"
+                              padding="1rem"
+                              backgroundColor="green.700"
+                              color="white"
+                              aria-label={`Editar publicação ${post.title}`}
+                            >
+                              <span className="hidden sm:block">Editar</span>
+                              <BsPencil />
+                            </Button>
+                          </Link>
+                        </Table.Cell>
+
+                        <Table.Cell textAlign="end">
+                          <DialogFormDelete
+                            handleDelete={() => handleDelete(post.id)}
+                          >
+                            <span className="hidden sm:block">Apagar</span>
+                          </DialogFormDelete>
+                        </Table.Cell>
+                      </Table.Row>
+                    );
+                  })}
                 </Table.Body>
               </Table.Root>
 
@@ -201,7 +212,7 @@ const AllPost = () => {
             </Stack>
           </div>
         </div>
-      </section>
+      </main>
     </div>
   );
 };

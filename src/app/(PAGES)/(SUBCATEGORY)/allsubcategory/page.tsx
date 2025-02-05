@@ -18,7 +18,10 @@ import { getAllCategory } from "@/services/category";
 
 import DialogFormDelete from "@/components/DialogForm/DialogFormDelete";
 import ButtonPageAllCreate from "@/components/ButtonCreate/ButtonPageAllCreate";
-import { ProgressCircleRing, ProgressCircleRoot } from "@/components/ui/progress-circle";
+import {
+  ProgressCircleRing,
+  ProgressCircleRoot,
+} from "@/components/ui/progress-circle";
 
 interface SubCategory {
   id: string;
@@ -102,101 +105,99 @@ const AllSubCategory = () => {
 
   return (
     <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
-      <section className="pt-10 sm:px-5 h-screen bg-white">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-center text-2xl font-bold text-green-700 pb-5">
-            Sub-Categorias
-          </h2>
+      <main
+        className="pt-10 sm:px-5 h-screen bg-white"
+        aria-labelledby="subcategory-title"
+      >
+        <h2
+          id="subcategory-title"
+          className="text-center text-2xl font-bold text-green-700 pb-5"
+        >
+          Sub-Categorias
+        </h2>
 
-          <div className="pb-5">
-            <ButtonPageAllCreate />
-          </div>
+        <div className="pb-5">
+          <ButtonPageAllCreate />
+        </div>
 
-          <div>
-            <Stack width="full" gap="5">
-              <Table.Root size="sm">
-                <Table.Header>
+        <div>
+          <Stack width="full" gap="5">
+            <Table.Root size="sm">
+              <Table.Header>
+                <Table.Row
+                  backgroundColor="transparent"
+                  borderBottom="1px solid #ddd"
+                >
+                  <Table.ColumnHeader color="green.700" fontWeight="700">
+                    Nome
+                  </Table.ColumnHeader>
+                  <Table.ColumnHeader color="green.700" fontWeight="700">
+                    Categoria
+                  </Table.ColumnHeader>
+                </Table.Row>
+              </Table.Header>
+
+              <Table.Body>
+                {subCategories.map((subCateg) => (
                   <Table.Row
+                    key={subCateg.id}
                     backgroundColor="transparent"
                     borderBottom="1px solid #ddd"
                   >
-                    <Table.ColumnHeader color="green.700" fontWeight="700">
-                      Nome
-                    </Table.ColumnHeader>
-                    <Table.ColumnHeader color="green.700" fontWeight="700">
-                      Categoria
-                    </Table.ColumnHeader>
-                  </Table.Row>
-                </Table.Header>
-
-                <Table.Body>
-                  {subCategories.map((subCateg) => (
-                    <Table.Row
-                      key={subCateg.id}
-                      backgroundColor="transparent"
-                      borderBottom="1px solid #ddd"
+                    <Table.Cell color="green.700">{subCateg.name}</Table.Cell>
+                    <Table.Cell
+                      color="green.700"
+                      className="pr-10 md:pr-80 lg:pr-96"
                     >
-                      <Table.Cell color="green.700">{subCateg.name}</Table.Cell>
-                      <Table.Cell
-                        color="green.700"
-                        className="pr-10 md:pr-80 lg:pr-96"
+                      {categories.find((cat) =>
+                        cat.subCategories.some((sub) => sub.id === subCateg.id)
+                      )?.name || "Categoria não encontrada"}
+                    </Table.Cell>
+
+                    <Table.Cell textAlign="end">
+                      <Link href={`/editsubcategory/${subCateg.id}`}>
+                        <Button
+                          variant="solid"
+                          size="sm"
+                          padding="1rem"
+                          backgroundColor="green.700"
+                          color="white"
+                        >
+                          <span className="hidden sm:block">Editar</span>
+                          <BsPencil />
+                        </Button>
+                      </Link>
+                    </Table.Cell>
+
+                    <Table.Cell textAlign="end">
+                      <DialogFormDelete
+                        handleDelete={() => handleDelete(subCateg.id)}
                       >
-                        {
-                          categories.find((cat) =>
-                            cat.subCategories.some(
-                              (sub) => sub.id === subCateg.id
-                            )
-                          )?.name
-                        }
-                      </Table.Cell>
+                        <span className="hidden sm:block">Apagar</span>
+                      </DialogFormDelete>
+                    </Table.Cell>
+                  </Table.Row>
+                ))}
+              </Table.Body>
+            </Table.Root>
 
-                      <Table.Cell textAlign="end">
-                        <Link
-                          href={`/editsubcategory/${subCateg.id}`}
-                        >
-                          <Button
-                            variant="solid"
-                            size="sm"
-                            padding="1rem"
-                            backgroundColor="green.700"
-                            color="white"
-                          >
-                            <span className="hidden sm:block">Editar</span>
-                            <BsPencil />
-                          </Button>
-                        </Link>
-                      </Table.Cell>
-
-                      <Table.Cell textAlign="end">
-                        <DialogFormDelete
-                          handleDelete={() => handleDelete(subCateg.id)}
-                        >
-                          <span className="hidden sm:block">Apagar</span>
-                        </DialogFormDelete>
-                      </Table.Cell>
-                    </Table.Row>
-                  ))}
-                </Table.Body>
-              </Table.Root>
-
-              <PaginationRoot
-                count={totalItems}
-                pageSize={10}
-                page={page + 1}
-                onPageChange={(e) => setPage(e.page - 1)}
-                color="white"
-                backgroundColor="green.700"
-              >
-                <HStack wrap="wrap">
-                  <PaginationPrevTrigger />
-                  <PaginationItems className="hover:border-white hover:border focus:border focus:border-white" />
-                  <PaginationNextTrigger />
-                </HStack>
-              </PaginationRoot>
-            </Stack>
-          </div>
+            <PaginationRoot
+              count={totalItems}
+              pageSize={10}
+              page={page + 1}
+              onPageChange={(e) => setPage(e.page - 1)}
+              color="white"
+              backgroundColor="green.700"
+            >
+              <HStack wrap="wrap">
+                <PaginationPrevTrigger />
+                <PaginationItems className="hover:border-white hover:border focus:border focus:border-white" />
+                <PaginationNextTrigger />
+              </HStack>
+            </PaginationRoot>
+          </Stack>
         </div>
-      </section>
+      </main>
     </div>
   );
 };

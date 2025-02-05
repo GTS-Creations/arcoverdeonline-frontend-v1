@@ -17,7 +17,10 @@ import { getAllCategory, deleteCategory } from "@/services/category";
 
 import DialogFormDelete from "@/components/DialogForm/DialogFormDelete";
 import ButtonPageAllCreate from "@/components/ButtonCreate/ButtonPageAllCreate";
-import { ProgressCircleRing, ProgressCircleRoot } from "@/components/ui/progress-circle";
+import {
+  ProgressCircleRing,
+  ProgressCircleRoot,
+} from "@/components/ui/progress-circle";
 
 interface Category {
   id: string;
@@ -90,91 +93,93 @@ const AllCategory = () => {
 
   return (
     <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
-      <section className="sm:px-5 h-screen pt-10 bg-white">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-center text-2xl font-bold text-green-700 pb-5">
-            Categorias
-          </h2>
+      <main
+        className="sm:px-5 h-screen pt-10 bg-white"
+        aria-labelledby="category-title"
+      >
+        <h2
+          className="text-center text-2xl font-bold text-green-700 pb-5"
+          id="category-title"
+        >
+          Categorias
+        </h2>
 
-          <div className="pb-5">
-            <ButtonPageAllCreate />
-          </div>
+        <div className="pb-5">
+          <ButtonPageAllCreate />
+        </div>
 
-          <div>
-            <Stack width="full" gap="5">
-              <Table.Root size="sm">
-                <Table.Header>
+        <div>
+          <Stack width="full" gap="5">
+            <Table.Root size="sm">
+              <Table.Header>
+                <Table.Row
+                  backgroundColor="transparent"
+                  borderBottom="1px solid #ddd"
+                >
+                  <Table.ColumnHeader color="green.700" fontWeight="700">
+                    Nome
+                  </Table.ColumnHeader>
+                </Table.Row>
+              </Table.Header>
+
+              <Table.Body>
+                {categories.map((categ) => (
                   <Table.Row
+                    key={categ.id}
                     backgroundColor="transparent"
                     borderBottom="1px solid #ddd"
                   >
-                    <Table.ColumnHeader color="green.700" fontWeight="700">
-                      Nome
-                    </Table.ColumnHeader>
-                  </Table.Row>
-                </Table.Header>
-
-                <Table.Body>
-                  {categories.map((categ) => (
-                    <Table.Row
-                      key={categ.id}
-                      backgroundColor="transparent"
-                      borderBottom="1px solid #ddd"
+                    <Table.Cell
+                      color="green.700"
+                      className="pr-20 md:pr-56 lg:pr-96"
                     >
-                      <Table.Cell
-                        color="green.700"
-                        className="pr-20 md:pr-56 lg:pr-96"
+                      <th scope="row">{categ.name}</th>
+                    </Table.Cell>
+
+                    <Table.Cell textAlign="end">
+                      <Link href={`/editcategory/${categ.id}`}>
+                        <Button
+                          variant="solid"
+                          size="sm"
+                          padding="1rem"
+                          backgroundColor="green.700"
+                          color="white"
+                        >
+                          <span className="hidden sm:block">Editar</span>
+                          <BsPencil />
+                        </Button>
+                      </Link>
+                    </Table.Cell>
+
+                    <Table.Cell textAlign="end">
+                      <DialogFormDelete
+                        handleDelete={() => handleDelete(categ.id)}
                       >
-                        {categ.name}
-                      </Table.Cell>
+                        <span className="hidden sm:block">Apagar</span>
+                      </DialogFormDelete>
+                    </Table.Cell>
+                  </Table.Row>
+                ))}
+              </Table.Body>
+            </Table.Root>
 
-                      <Table.Cell textAlign="end">
-                        <Link
-                          href={`/editcategory/${categ.id}`}
-                        >
-                          <Button
-                            variant="solid"
-                            size="sm"
-                            padding="1rem"
-                            backgroundColor="green.700"
-                            color="white"
-                          >
-                            <span className="hidden sm:block">Editar</span>
-                            <BsPencil />
-                          </Button>
-                        </Link>
-                      </Table.Cell>
-
-                      <Table.Cell textAlign="end">
-                        <DialogFormDelete
-                          handleDelete={() => handleDelete(categ.id)}
-                        >
-                          <span className="hidden sm:block">Apagar</span>
-                        </DialogFormDelete>
-                      </Table.Cell>
-                    </Table.Row>
-                  ))}
-                </Table.Body>
-              </Table.Root>
-
-              <PaginationRoot
-                count={totalItems}
-                pageSize={10}
-                page={page + 1}
-                onPageChange={(e) => setPage(e.page - 1)}
-                color="white"
-                backgroundColor="green.700"
-              >
-                <HStack wrap="wrap">
-                  <PaginationPrevTrigger />
-                  <PaginationItems className="hover:border-white hover:border focus:border focus:border-white" />
-                  <PaginationNextTrigger />
-                </HStack>
-              </PaginationRoot>
-            </Stack>
-          </div>
+            <PaginationRoot
+              count={totalItems}
+              pageSize={10}
+              page={page + 1}
+              onPageChange={(e) => setPage(e.page - 1)}
+              color="white"
+              backgroundColor="green.700"
+            >
+              <HStack wrap="wrap">
+                <PaginationPrevTrigger />
+                <PaginationItems className="hover:border-white hover:border focus:border focus:border-white" />
+                <PaginationNextTrigger />
+              </HStack>
+            </PaginationRoot>
+          </Stack>
         </div>
-      </section>
+      </main>
     </div>
   );
 };

@@ -63,11 +63,11 @@ export async function getCategoryId(id: any) {
     return res;
   } catch (error: any) {
     console.error(
-      `Erro ao buscar categoria pelo Id ${id}:`,
+      `Erro ao buscar categoria ${id}:`,
       error.message || error
     );
     throw new Error(
-      `Não foi possível buscar a categoria com ID ${id}. Tente novamente mais tarde.`
+      `Não foi possível buscar a categoria ${id}. Tente novamente mais tarde.`
     );
   }
 }
@@ -100,11 +100,11 @@ export async function updateCategory(
     return res;
   } catch (error: any) {
     console.error(
-      `Erro ao atualizar a categoria com o ID ${id}:`,
+      `Erro ao atualizar a categoria ${name}:`,
       error.message || error
     );
     throw new Error(
-      `Não foi possível atualizar a categoria com o ID ${id}. Tente novamente mais tarde.`
+      `Não foi possível atualizar a categoria ${name}. Tente novamente mais tarde.`
     );
   }
 }
@@ -126,7 +126,7 @@ export async function deleteCategory(id: any): Promise<void> {
     });
   } catch (error: any) {
     console.error(
-      `Erro ao excluir a categoria com o ID ${id}:`,
+      `Erro ao excluir a categoria ${id}:`,
       error.message || error
     );
     throw new Error(

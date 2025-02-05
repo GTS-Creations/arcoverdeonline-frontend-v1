@@ -17,7 +17,7 @@ import {
 export default function EditPost() {
   const { id } = useParams();
   const [title, setTitle] = useState("");
-  const [pdf, setPdf] = useState<File | null>(null);
+  const [pdf, setPdf] = useState<File | any>(null);
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -47,12 +47,30 @@ export default function EditPost() {
     fetchPostData();
   }, [id]);
 
-  const handleEdit = async () => {
+  const handleEdit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (pdf && pdf.type !== "application/pdf") {
+      alert("O arquivo deve ser em formato PDF.");
+      return;
+    }
+
+    if (!title || !subCategoryId) {
+      alert("Preencha todos os campos.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("pdf", pdf);
+    formData.append("subCategoryId", subCategoryId);
+
     try {
-      await updatePost(id, { title, pdf, subCategoryId });
+      const res = await updatePost(id, {formData});
       router.push("/allpost");
-    } catch {
-      setError("Erro ao atualizar a publicação. Tente novamente.");
+      return res;
+    } catch (err) {
+      console.error("Erro ao criar post:", err);
     }
   };
 
@@ -98,8 +116,11 @@ export default function EditPost() {
 
   return (
     <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
-      <section className="flex items-center flex-col pt-10 h-screen bg-white">
-        <form className="w-full max-w-md p-6 bg-white shadow-lg rounded-lg">
+      <main className="flex items-center flex-col pt-10 h-screen bg-white">
+        <form
+          className="w-full max-w-md p-6 bg-white shadow-lg rounded-lg"
+          aria-labelledby="edit-post-title"
+        >
           <FormPost
             handleChange={handleChange}
             title={title}
@@ -109,9 +130,10 @@ export default function EditPost() {
             subCategoryId={subCategoryId}
             subCategories={subCategories}
           />
+
           <DialogFormEdit handleEdit={handleEdit} />
         </form>
-      </section>
+      </main>
     </div>
   );
 }

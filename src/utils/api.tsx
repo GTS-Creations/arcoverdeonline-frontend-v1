@@ -30,5 +30,18 @@ export async function apiRequest(endpoint: string, options = {}): Promise<any> {
 export async function apiRequestForm(endpoint: string, options = {}) {
   const res = await fetch(`${BASE_URL}${endpoint}`, options);
 
+  if (!res.ok) {
+    let errorMessage = "Erro desconhecido";
+
+    try {
+      errorMessage = await res.text();
+    } catch (err) {
+      console.error("Erro ao processar resposta da API", err);
+    }
+
+    throw new Error(`Erro na API: ${res.status} - ${errorMessage}`);
+  }
+
   return res;
 }
+

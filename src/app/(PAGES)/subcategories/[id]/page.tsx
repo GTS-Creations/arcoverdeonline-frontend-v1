@@ -108,56 +108,63 @@ export default function SubCategoryDetails() {
   // Renderiza a página
   return (
     <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
-      <section className="px-4 bg-white pt-10 h-screen">
+      <main className="h-screen px-4 pt-10 bg-white">
         <div className="max-w-5xl mx-auto">
-          {/* Título da subcategoria */}
-          <h1 className="text-4xl font-bold uppercase underline underline-offset-4 text-center text-green-700 pb-6">
-            {subCategory.name}
-          </h1>
+          {/* Cabeçalho da Subcategoria */}
+          <header className="text-center">
+            <h1 className="text-4xl font-bold uppercase underline underline-offset-4 text-green-700 pb-6">
+              {subCategory.name}
+            </h1>
+          </header>
 
-          {/* Lista de publicações */}
-          <h2 className="py-4 text-2xl font-semibold uppercase text-green-700">
-            Publicações:
-          </h2>
-          {subCategory.posts.length > 0 ? (
-            <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {subCategory.posts.map((post) => (
-                <li key={post.id}>
-                  <Button
-                    className="w-full hover:scale-105 bg-green-700 transition px-6 py-4 rounded-md shadow-sm shadow-gray-400 text-center cursor-pointer"
-                    onClick={() => {
-                      if (post.pdf) {
-                        window.open(post.pdf, "_blank"); // Abre o PDF em uma nova guia
-                      } else {
-                        alert("PDF não disponível."); // Exibe alerta caso o PDF não esteja disponível
-                      }
-                    }}
-                  >
-                    <span className="uppercase text-white font-semibold">
-                      {post.title}
-                    </span>
-                  </Button>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p className="text-gray-600">Nenhuma publicação encontrada.</p>
-          )}
+          {/* Seção de Publicações */}
+          <section>
+            <h2 className="py-4 text-2xl font-semibold uppercase text-green-700">
+              Publicações:
+            </h2>
 
-          {/* Botão de voltar */}
-          <Link href={`/`} className="text-center">
-            <Button
-              backgroundColor="green.700"
-              padding="1rem"
-              width="full"
-              className="mt-6 hover:bg-green-600"
-              color="white"
-            >
-              Voltar
-            </Button>
-          </Link>
+            {subCategory.posts.length > 0 ? (
+              <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {subCategory.posts.map((post) => (
+                  <li key={post.id}>
+                    <button
+                      className="w-full hover:scale-105 bg-green-700 transition px-6 py-4 rounded-md shadow-sm shadow-gray-400 text-center cursor-pointer"
+                      onClick={() => {
+                        if (post.pdf) {
+                          window.open(post.pdf, "_blank"); // Abre o PDF em uma nova aba
+                        } else {
+                          alert("PDF não disponível."); // Exibe alerta caso o PDF não esteja disponível
+                        }
+                      }}
+                    >
+                      <span className="uppercase text-white font-semibold">
+                        {post.title}
+                      </span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="text-gray-600">Nenhuma publicação encontrada.</p>
+            )}
+          </section>
+
+          {/* Rodapé com Botão de Voltar */}
+          <footer className="text-center mt-6">
+            <Link href={`/`}>
+              <Button
+                backgroundColor="green.700"
+                padding="1rem"
+                width="full"
+                className="hover:bg-green-600"
+                color="white"
+              >
+                Voltar
+              </Button>
+            </Link>
+          </footer>
         </div>
-      </section>
+      </main>
     </div>
   );
 }

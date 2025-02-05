@@ -102,47 +102,53 @@ export default function CategoryDetails() {
 
   return (
     <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
-      <section className="h-screen px-4 pt-10 bg-white">
+      <main className="h-screen px-4 pt-10 bg-white">
         <div className="max-w-5xl mx-auto">
-          <h1 className="text-4xl font-bold text-center uppercase underline underline-offset-4 text-green-700 pb-6">
-            {category.name}
-          </h1>
+          <header className="text-center">
+            <h1 className="text-4xl font-bold uppercase underline underline-offset-4 text-green-700 pb-6">
+              {category.name}
+            </h1>
+          </header>
 
-          <h2 className="py-4 text-2xl uppercase font-semibold text-green-700">
-            Sub-categorias:
-          </h2>
-          {category.subCategories.length > 0 ? (
-            <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {category.subCategories.map((subCategory) => (
-                <Link
-                  href={`/subcategories/${subCategory.id}`}
-                  key={subCategory.id}
-                >
-                  <div className="hover:scale-105 transition bg-green-700 px-6 py-4 rounded-md shadow-sm shadow-gray-400 text-center cursor-pointer">
-                    <span className="uppercase text-white font-semibold">
-                      {subCategory.name}
-                    </span>
-                  </div>
-                </Link>
-              ))}
-            </ul>
-          ) : (
-            <p className="text-gray-600">Nenhuma subcategoria encontrada.</p>
-          )}
+          <section>
+            <h2 className="py-4 text-2xl uppercase font-semibold text-green-700">
+              Subcategorias:
+            </h2>
 
-          <Link href={`/`} className="text-center">
-            <Button
-              backgroundColor="green.700"
-              padding="1rem"
-              width="full"
-              className="mt-6 hover:bg-green-600"
-              color="white"
-            >
-              Voltar
-            </Button>
-          </Link>
+            {category.subCategories.length > 0 ? (
+              <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {category.subCategories.map((subCategory) => (
+                  <li key={subCategory.id}>
+                    <Link href={`/subcategories/${subCategory.id}`}>
+                      <div className="hover:scale-105 transition bg-green-700 px-6 py-4 rounded-md shadow-sm shadow-gray-400 text-center cursor-pointer">
+                        <span className="uppercase text-white font-semibold">
+                          {subCategory.name}
+                        </span>
+                      </div>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="text-gray-600">Nenhuma subcategoria encontrada.</p>
+            )}
+          </section>
+
+          <footer className="text-center mt-6">
+            <Link href={`/`}>
+              <Button
+                backgroundColor="green.700"
+                padding="1rem"
+                width="full"
+                className="hover:bg-green-600"
+                color="white"
+              >
+                Voltar
+              </Button>
+            </Link>
+          </footer>
         </div>
-      </section>
+      </main>
     </div>
   );
 }

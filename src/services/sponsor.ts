@@ -7,14 +7,12 @@ export async function createSponsor(formData: FormData) {
   const token = Cookies.get("nextauth.token");
 
   try {
-    // Enviando o FormData diretamente
     const res = await apiRequestForm(`/sponsors`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
-        // Não defina o 'Content-Type', o navegador vai lidar com isso
       },
-      body: formData, // O corpo da requisição é o FormData
+      body: formData,
     });
 
     return res;
@@ -64,20 +62,16 @@ export async function getSponsorId(id: any) {
 
     return res;
   } catch (error: any) {
-    console.error(
-      `Erro ao buscar patrocinador pelo Id ${id}:`,
-      error.message || error
-    );
+    console.error(`Erro ao buscar patrocinador ${id}:`, error.message || error);
     throw new Error(
-      `Não foi possível buscar o patrocinador com ID ${id}. Tente novamente mais tarde.`
+      `Não foi possível buscar o patrocinador ${id}. Tente novamente mais tarde.`
     );
   }
 }
 
-// Rota que faz atualização/edição do patrocinador selecionado pelo ID
 export async function updateSponsor(
-  id: string, // O ID do patrocinador
-  formData: FormData // FormData contendo os dados para atualizar o patrocinador
+  id: any,
+  { formData }: { formData: FormData }
 ) {
   if (!id) {
     throw new Error("O ID do patrocinador é obrigatório.");
@@ -86,24 +80,22 @@ export async function updateSponsor(
   const token = Cookies.get("nextauth.token");
 
   try {
-    // Enviando o FormData diretamente
     const res = await apiRequestForm(`/sponsors/${id}`, {
-      method: "PUT", // Método para atualizar
+      method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,
-        // Não defina o Content-Type, o navegador vai lidar com isso automaticamente
       },
-      body: formData, // Corpo da requisição com o FormData
+      body: formData,
     });
 
     return res;
   } catch (error: any) {
     console.error(
-      `Erro ao atualizar o patrocinador com o ID ${id}:`,
+      `Erro ao atualizar o patrocinador ${id}:`,
       error.message || error
     );
     throw new Error(
-      `Não foi possível atualizar o patrocinador com o ID ${id}. Tente novamente mais tarde.`
+      `Não foi possível atualizar o patrocinador ${id}. Tente novamente mais tarde.`
     );
   }
 }
@@ -125,11 +117,11 @@ export async function deleteSponsor(id: any): Promise<void> {
     });
   } catch (error: any) {
     console.error(
-      `Erro ao excluir o patrocinador com o ID ${id}:`,
+      `Erro ao excluir o patrocinador ${id}:`,
       error.message || error
     );
     throw new Error(
-      `Não foi possível excluir o patrocinador com o ID ${id}. Tente novamente mais tarde.`
+      `Não foi possível excluir o patrocinador ${id}. Tente novamente mais tarde.`
     );
   }
 }

@@ -109,10 +109,6 @@ export default function EditUser() {
           className="w-full max-w-md p-6 bg-white shadow-lg rounded-lg"
           aria-labelledby="form-title"
         >
-          <h2 id="form-title" className="sr-only">
-            Formulário de Usuário
-          </h2>
-
           <FormUser
             name={name}
             setName={setName}

@@ -107,8 +107,15 @@ export default function EditSubCategory() {
 
   return (
     <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
-      <section className="flex items-center flex-col pt-10 h-screen bg-white">
-        <form className="w-full max-w-md p-6 bg-white shadow-lg rounded-lg">
+      <main
+        className="flex items-center flex-col pt-10 h-screen bg-white"
+        aria-labelledby="edit-subcategory-title"
+      >
+
+        <form
+          className="w-full max-w-md p-6 bg-white shadow-lg rounded-lg"
+          onSubmit={handleEdit}
+        >
           <FormSubCategory
             handleChange={handleChange}
             name={name}
@@ -119,7 +126,7 @@ export default function EditSubCategory() {
 
           <DialogFormEdit handleEdit={handleEdit} />
         </form>
-      </section>
+      </main>
     </div>
   );
 }

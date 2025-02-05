@@ -19,7 +19,7 @@ import {
 export default function EditSponsor() {
   const { id } = useParams();
   const [name, setName] = useState("");
-  const [logo, setLogo] = useState<File | undefined>(undefined);
+  const [logo, setLogo] = useState<File | any>(null);
   const [contact, setContact] = useState("");
   const [url, setUrl] = useState("");
   const [sponsor, setSponsor] = useState(null);
@@ -35,12 +35,10 @@ export default function EditSponsor() {
       try {
         const data = await getSponsorId(id);
         setSponsor(data);
-        setName(data.name || "");
-        setContact(data.contact || "");
-        setUrl(data.url || "");
-        if (data.logo) {
-          setLogo(undefined);
-        }
+        setName(data.name);
+        setContact(data.contact);
+        setUrl(data.url);
+        setLogo(data.logo);
       } catch (error: any) {
         setError("Erro ao buscar o patrocinador, tente novamente mais tarde.");
       } finally {
@@ -54,24 +52,25 @@ export default function EditSponsor() {
   const handleEdit = async (e: any) => {
     e.preventDefault();
 
+    const formatosPermitidos = ["image/png", "image/jpeg"];
+
+    if (logo && !formatosPermitidos.includes(logo.type)) {
+      setError(true);
+      alert("O arquivo deve ser uma imagem PNG ou JPG");
+      return;
+    }
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("logo", logo);
+    formData.append("contact", contact);
+    formData.append("url", url);
+
     try {
-      // Garantir que id seja tratado como string
-      const sponsorId = Array.isArray(id) ? id[0] : id;
-
-      // Criação do FormData
-      const formData = new FormData();
-      formData.append("name", name);
-      if (logo) formData.append("logo", logo); // Se logo foi alterado, anexa
-      formData.append("contact", contact);
-      formData.append("url", url);
-
-      // Passando o FormData para a função de atualização
-      await updateSponsor(sponsorId, formData);
-
-      // Redirecionando após o sucesso
+      const res = await updateSponsor(id, { formData });
       router.push("/allsponsor");
+      return res;
     } catch (error: any) {
-      setError("Erro ao atualizar o patrocinador, tente novamente mais tarde.");
+      console.error("Erro ao atualizar o patrocinador, tente novamente mais tarde.");
     }
   };
 
@@ -117,7 +116,10 @@ export default function EditSponsor() {
 
   return (
     <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
-      <section className="flex items-center flex-col pt-10 h-screen bg-white">
+      <main
+        className="flex items-center flex-col pt-10 h-screen bg-white"
+        aria-labelledby="edit-sponsor-title"
+      >
         <form
           className="w-full max-w-md p-6 bg-white shadow-lg rounded-lg"
           onSubmit={handleEdit}
@@ -135,7 +137,7 @@ export default function EditSponsor() {
 
           <DialogFormEdit handleEdit={handleEdit} />
         </form>
-      </section>
+      </main>
     </div>
   );
 }

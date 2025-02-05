@@ -67,7 +67,7 @@ export async function getPostId(id: any) {
       error.message || error
     );
     throw new Error(
-      `Não foi possível buscar a publicação com ID ${id}. Tente novamente mais tarde.`
+      `Não foi possível buscar a publicação ${id}. Tente novamente mais tarde.`
     );
   }
 }
@@ -75,15 +75,7 @@ export async function getPostId(id: any) {
 // Rota que faz atualização/edição da publicação selecionada pelo ID
 export async function updatePost(
   id: any,
-  {
-    title,
-    pdf,
-    subCategoryId,
-  }: {
-    title: string;
-    pdf?: File | null;
-    subCategoryId: string;
-  }
+  { formData }: { formData: FormData }
 ) {
   if (!id) {
     throw new Error("O ID da publicação é obrigatório.");
@@ -92,14 +84,7 @@ export async function updatePost(
   const token = Cookies.get("nextauth.token");
 
   try {
-    const formData = new FormData();
-    formData.append("title", title);
-    if (pdf) {
-      formData.append("pdf", pdf);
-    }
-    formData.append("subCategoryId", subCategoryId);
-
-    const res = await apiRequestForm("/posts${id}", {
+    const res = await apiRequestForm(`/posts/${id}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -109,12 +94,9 @@ export async function updatePost(
 
     return res;
   } catch (error: any) {
-    console.error(
-      `Erro ao atualizar a publicação com o ID ${id}:`,
-      error.message || error
-    );
+    console.error(`Erro ao atualizar a publicação`, error.message || error);
     throw new Error(
-      `Não foi possível atualizar a publicação com o ID ${id}. Tente novamente mais tarde.`
+      `Não foi possível atualizar a publicação. Tente novamente mais tarde.`
     );
   }
 }
@@ -136,11 +118,11 @@ export async function deletePost(id: any): Promise<void> {
     });
   } catch (error: any) {
     console.error(
-      `Erro ao excluir a publicação com o ID ${id}:`,
+      `Erro ao excluir a publicação ${id}:`,
       error.message || error
     );
     throw new Error(
-      `Não foi possível excluir a publicação com o ID ${id}. Tente novamente mais tarde.`
+      `Não foi possível excluir a publicação ${id}. Tente novamente mais tarde.`
     );
   }
 }

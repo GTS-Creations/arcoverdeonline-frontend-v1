@@ -69,11 +69,11 @@ export async function getSubCategoryId(id: any) {
     return res;
   } catch (error: any) {
     console.error(
-      `Erro ao buscar sub-categoria pelo Id ${id}:`,
+      `Erro ao buscar sub-categoria ${id}:`,
       error.message || error
     );
     throw new Error(
-      `Não foi possível buscar a sub-categoria com ID ${id}. Tente novamente mais tarde.`
+      `Não foi possível buscar a sub-categoria ${id}. Tente novamente mais tarde.`
     );
   }
 }
@@ -108,11 +108,11 @@ export async function updateSubCategory(
     return res;
   } catch (error: any) {
     console.error(
-      `Erro ao atualizar a sub-categoria com o ID ${id}:`,
+      `Erro ao atualizar a sub-categoria ${name}:`,
       error.message || error
     );
     throw new Error(
-      `Não foi possível atualizar a sub-categoria com o ID ${id}. Tente novamente mais tarde.`
+      `Não foi possível atualizar a sub-categoria ${name}. Tente novamente mais tarde.`
     );
   }
 }

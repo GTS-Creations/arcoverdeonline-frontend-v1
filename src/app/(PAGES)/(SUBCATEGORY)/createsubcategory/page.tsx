@@ -48,7 +48,10 @@ export default function CreateSubCategory() {
 
   return (
     <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
-      <section className="flex items-center h-screen flex-col bg-white pt-10">
+      <main
+        className="flex items-center h-screen flex-col bg-white pt-10"
+        aria-labelledby="sub-category-title"
+      >
         <form
           onSubmit={handleSubmit}
           className="w-full max-w-md p-6 bg-white shadow-lg rounded-lg"
@@ -67,18 +70,15 @@ export default function CreateSubCategory() {
             {success && (
               <Alert
                 status="success"
-                title="Sub-categoria feita com sucesso!"
-              ></Alert>
+                title="Sub-categoria criada com sucesso!"
+              />
             )}
             {error && (
-              <Alert
-                status="error"
-                title="Erro ao criar sub-categoria, tente novamente mais tarde."
-              ></Alert>
+              <Alert status="error" title="Erro ao criar sub-categoria" />
             )}
           </Stack>
         </form>
-      </section>
+      </main>
     </div>
   );
 }

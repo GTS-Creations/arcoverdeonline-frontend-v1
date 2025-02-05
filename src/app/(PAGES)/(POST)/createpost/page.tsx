@@ -23,20 +23,15 @@ export default function CreatePost() {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
   const isAuthenticated = useAuthStatus();
-  const router = useRouter()
+  const router = useRouter();
 
-  const { subCategories, subCategoryId, setSubCategoryId, handleChange } =
+  const { subCategories, subCategoryId, handleChange } =
     useGetSubCategory();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSuccess(false);
     setError(false);
-
-    if (!title || !pdf || !subCategoryId) {
-      setError(true);
-      return;
-    }
 
     if (pdf && pdf.type !== "application/pdf") {
       setError(true);
@@ -52,23 +47,21 @@ export default function CreatePost() {
     try {
       const res = await createPost(formData);
       setSuccess(true);
-      setTitle("");
-      setPdf(null); // Corrigido para null em vez de uma string vazia
-      setSubCategoryId("");
-      router.push("/allpost")
+      router.push("/allpost");
       return res;
     } catch (err) {
       console.error("Erro ao criar post:", err);
       setError(true);
-    }    
+    }
   };
 
   return (
     <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
-      <section className="flex items-center flex-col bg-white pt-10 h-screen">
+      <main className="flex items-center flex-col bg-white pt-10 h-screen">
         <form
           onSubmit={handleSubmit}
           className="w-full max-w-md p-6 bg-white shadow-lg rounded-lg"
+          aria-labelledby="form-title"
         >
           <FormPost
             handleChange={handleChange}
@@ -80,21 +73,28 @@ export default function CreatePost() {
             subCategories={subCategories}
           />
 
-          <ButtonFormCreate />
+          <ButtonFormCreate aria-label="Criar Publicação" />
 
           <Stack marginTop="1rem">
             {success && (
-              <Alert status="success" title="Publicação criada com sucesso!" />
+              <Alert
+                status="success"
+                title="Publicação criada com sucesso!"
+                role="alert"
+                aria-live="polite"
+              />
             )}
             {error && (
               <Alert
                 status="error"
                 title="Erro ao criar publicação. Tente novamente."
+                role="alert"
+                aria-live="assertive"
               />
             )}
           </Stack>
         </form>
-      </section>
+      </main>
     </div>
   );
 }

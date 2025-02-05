@@ -45,10 +45,11 @@ export default function CreateCategory() {
 
   return (
     <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
-      <section className="flex items-center pt-10 flex-col bg-white h-screen">
+      <main className="flex items-center pt-10 flex-col bg-white h-screen">
         <form
           onSubmit={handleSubmit}
           className="w-full max-w-md p-6 bg-white shadow-lg rounded-lg"
+          aria-label="Formulário para criação de categoria"
         >
           <FormCategory name={name} setName={setName} />
 
@@ -56,12 +57,22 @@ export default function CreateCategory() {
 
           <Stack marginTop="1rem">
             {success && (
-              <Alert status="success" title="Categoria criada com sucesso!" />
+              <Alert
+                status="success"
+                title="Categoria criada com sucesso!"
+                aria-live="polite"
+              />
             )}
-            {error && <Alert status="error" title="Erro ao criar categoria" />}
+            {error && (
+              <Alert
+                status="error"
+                title="Erro ao criar categoria"
+                aria-live="polite"
+              />
+            )}
           </Stack>
         </form>
-      </section>
+      </main>
     </div>
   );
 }

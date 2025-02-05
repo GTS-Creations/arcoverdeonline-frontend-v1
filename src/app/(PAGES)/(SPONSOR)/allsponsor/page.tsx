@@ -17,7 +17,10 @@ import { getAllSponsor, deleteSponsor } from "@/services/sponsor";
 
 import DialogFormDelete from "@/components/DialogForm/DialogFormDelete";
 import ButtonPageAllCreate from "@/components/ButtonCreate/ButtonPageAllCreate";
-import { ProgressCircleRing, ProgressCircleRoot } from "@/components/ui/progress-circle";
+import {
+  ProgressCircleRing,
+  ProgressCircleRoot,
+} from "@/components/ui/progress-circle";
 
 interface Sponsor {
   id: string;
@@ -90,9 +93,15 @@ const AllSponsor = () => {
 
   return (
     <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
-      <section className="py-20 sm:px-5 h-screen bg-white">
+      <main
+        className="py-20 sm:px-5 h-screen bg-white"
+        aria-labelledby="sponsors-title"
+      >
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-center text-2xl font-bold text-green-700 pb-5">
+          <h2
+            id="sponsors-title"
+            className="text-center text-2xl font-bold text-green-700 pb-5"
+          >
             Patrocinadores
           </h2>
 
@@ -100,7 +109,8 @@ const AllSponsor = () => {
             <ButtonPageAllCreate />
           </div>
 
-          <div>
+          {/* Responsividade na tabela */}
+          <div className="overflow-x-auto">
             <Stack width="full" gap="5">
               <Table.Root size="sm">
                 <Table.Header>
@@ -135,9 +145,7 @@ const AllSponsor = () => {
                       </Table.Cell>
 
                       <Table.Cell textAlign="end">
-                        <Link
-                          href={`/editsponsor/${sponsor.id}`}
-                        >
+                        <Link href={`/editsponsor/${sponsor.id}`}>
                           <Button
                             variant="solid"
                             size="sm"
@@ -163,6 +171,7 @@ const AllSponsor = () => {
                 </Table.Body>
               </Table.Root>
 
+              {/* Paginação */}
               <PaginationRoot
                 count={totalItems}
                 pageSize={10}
@@ -180,7 +189,7 @@ const AllSponsor = () => {
             </Stack>
           </div>
         </div>
-      </section>
+      </main>
     </div>
   );
 };

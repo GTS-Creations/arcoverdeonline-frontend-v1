@@ -11,7 +11,10 @@ import { getCategoryId, updateCategory } from "@/services/category";
 // COMPONENTES
 import FormCategory from "@/components/Form/FormCategory";
 import DialogFormEdit from "@/components/DialogForm/DialogFormEdit";
-import { ProgressCircleRing, ProgressCircleRoot } from "@/components/ui/progress-circle";
+import {
+  ProgressCircleRing,
+  ProgressCircleRoot,
+} from "@/components/ui/progress-circle";
 
 export default function EditCategory() {
   const { id } = useParams();
@@ -92,13 +95,16 @@ export default function EditCategory() {
 
   return (
     <div className={isAuthenticated ? "lg:ml-56 sm:ml-0" : "ml-0"}>
-      <section className="flex items-center pt-10 flex-col h-screen bg-white">
-        <form className="w-full max-w-md p-6 bg-white shadow-lg rounded-lg">
+      <main className="flex items-center pt-10 flex-col h-screen bg-white">
+        <form
+          className="w-full max-w-md p-6 bg-white shadow-lg rounded-lg"
+          aria-label="Formulário de edição de categoria"
+        >
           <FormCategory name={name} setName={setName} />
 
           <DialogFormEdit handleEdit={handleEdit} />
         </form>
-      </section>
+      </main>
     </div>
   );
 }

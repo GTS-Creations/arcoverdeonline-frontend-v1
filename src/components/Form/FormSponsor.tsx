@@ -34,12 +34,6 @@ const FormSponsor = ({
     setSubTitle(currentSubTitle);
   }, [pathname]);
 
-  const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setLogo(e.target.files[0]);
-    }
-  };
-
   const formatPhoneNumber = (value: string) => {
     const numbersOnly = value.replace(/\D/g, "");
     if (numbersOnly.length <= 10) {
@@ -86,13 +80,8 @@ const FormSponsor = ({
             <Input
               name="logo"
               type="file"
-              onChange={handleLogoChange}
+              onChange={(e) => setLogo(e.target.files ? e.target.files[0] : null)}
               required
-              border="1px solid #ddd"
-              placeholder="Insira a logo do patrocinador"
-              padding="1rem"
-              paddingBottom="3rem"
-              _placeholder={{ color: "gray.400" }}
               className="focus:ring focus:ring-green-600"
             />
           </Field>

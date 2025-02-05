@@ -1,36 +1,121 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Documentação Front-End Arcoverde Online Frontend
 
-## Getting Started
+Este é a documentação do frontend do projeto Arcoverde Online.
 
-First, run the development server:
+## Estrutura do Projeto
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+A estrutura do projeto é a seguinte:
+```
+├── .next/
+├── node_modules/
+├── src/
+│   ├── app/
+│   ├── assets/
+│   ├── components/
+│   ├── contexts/
+│   ├── hooks/
+│   ├── services/
+│   ├── utils/
+│   └── middleware.ts
+├── .env.example
+├── .env.local
+├── .gitignore
+├── next-env.d.ts
+├── next.config.mjs
+├── package-lock.json
+├── package.json
+├── postcss.config.mjs
+├── README.md
+├── tailwind.config.ts
+├── tsconfig.json
+├── vercel.json
+├── yarn.lock
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Instalação
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Clone o repositório:
+```sh
+   git clone https://github.com/seu-usuario/arcoverdeonline-frontend-v1.git
+   cd arcoverdeonline-frontend-v1
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+2. Instale as dependências:
+```sh
+   npm install
+```
 
-## Learn More
+3. Crie um arquivo `.env.local` baseado no `.env.example` e configure as variáveis de ambiente necessárias.
 
-To learn more about Next.js, take a look at the following resources:
+## Scripts Disponíveis
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+No diretório do projeto, você pode executar:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```sh
+npm run dev
+```
+Executa a aplicação em modo de desenvolvimento. Abra `http://localhost:3000` para ver no navegador.
 
-## Deploy on Vercel
+```sh
+npm run build
+```
+Compila a aplicação para produção na pasta `.next`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```sh
+npm run start
+```
+Inicia o servidor em produção.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Estrutura de Pastas
+
+- `src/app`: Contém as páginas da aplicação.
+- `src/assets`: Contém os arquivos estáticos, como imagens.
+- `src/components`: Contém os componentes reutilizáveis da aplicação.
+- `src/contexts`: Contém os contextos do React para gerenciamento de estado global.
+- `src/hooks`: Contém hooks personalizados.
+- `src/services`: Contém as funções para chamadas de API.
+- `src/utils`: Contém funções utilitárias.
+
+## Componentes Principais
+
+- **Navbar**: Componente de navegação principal. Arquivo: `Navbar.tsx`
+- **Footer**: Componente de rodapé. Arquivo: `Footer.tsx`
+- **Sidebar**: Componente de barra lateral. Arquivo: `Sidebar.tsx`
+
+## Formulários
+
+- **FormCategory**: Criar/editar categorias. Arquivo: `FormCategory.tsx`
+- **FormSubCategory**: Criar/editar subcategorias. Arquivo: `FormSubCategory.tsx`
+- **FormPost**: Criar/editar publicações. Arquivo: `FormPost.tsx`
+- **FormSponsor**: Criar/editar patrocinadores. Arquivo: `FormSponsor.tsx`
+
+## Hooks Personalizados
+
+- **useAuthStatus**: Verifica o status de autenticação do usuário. Arquivo: `src/hooks/useAuthStatus.ts`
+- **useGetCategory**: Hook para buscar categorias. Arquivo: `src/hooks/useGetCategory.ts`
+- **useGetSubCategory**: Hook para buscar subcategorias. Arquivo: `src/hooks/useGetSubCategory.ts`
+
+## Serviços
+
+- **category.ts**: Gerenciamento de categorias. Arquivo: `category.ts`
+- **subCategory.ts**: Gerenciamento de subcategorias. Arquivo: `subCategory.ts`
+- **post.ts**: Gerenciamento de publicações. Arquivo: `post.ts`
+- **sponsor.ts**: Gerenciamento de patrocinadores. Arquivo: `sponsor.ts`
+- **user.ts**: Gerenciamento de usuários. Arquivo: `user.ts`
+- **auth.ts**: Gerenciamento da autenticação. Arquivo: `auth.ts`
+- **home.ts**: Gerenciamento da rota de pesquisa. Arquivo: `home.ts`
+
+## Contexto
+
+- **AuthContext**: Função de login e autenticação global. Arquivo: `AuthContext.tsx`
+
+## Configurações
+
+- **Tailwind CSS**: Configuração do Tailwind CSS. Arquivo: `tailwind.config.ts`
+- **PostCSS**: Configuração do PostCSS. Arquivo: `postcss.config.mjs`
+- **Next.js**: Configuração do Next.js. Arquivo: `next.config.mjs`
+
+## Licença
+
+Este projeto está licenciado sob a Licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
+
